@@ -1,0 +1,2356 @@
+\documentclass[a4paper]{article}
+\usepackage{a4wide,amssymb,epsfig,latexsym,multicol,array,hhline,fancyhdr}
+\usepackage{vntex}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subfig}
+\usepackage{lastpage}
+\usepackage[lined,boxed,commentsnumbered]{algorithm2e}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{graphicx}							% Standard graphics package
+\usepackage{array}
+\usepackage{tabularx, caption}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{rotating}
+\usepackage{graphics}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{epsfig}
+\usepackage{tikz}
+\usetikzlibrary{arrows,snakes,backgrounds}
+\usepackage{hyperref}
+\hypersetup{urlcolor=blue,linkcolor=black,citecolor=black,colorlinks=true} 
+%\usepackage{pstcol} 								% PSTricks with the standard color package
+\graphicspath{ {./images/} }
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\newtheorem{theorem}{{\bf Theorem}}
+\newtheorem{property}{{\bf Property}}
+\newtheorem{proposition}{{\bf Proposition}}
+\newtheorem{corollary}[proposition]{{\bf Corollary}}
+\newtheorem{lemma}[proposition]{{\bf Lemma}}
+
+\AtBeginDocument{\renewcommand*\contentsname{Mục lục}}
+\AtBeginDocument{\renewcommand*\refname{References}}
+%\usepackage{fancyhdr}
+\setlength{\headheight}{40pt}
+\pagestyle{fancy}
+\fancyhead{} % clear all header fields
+\fancyhead[L]{
+ \begin{tabular}{rl}
+    \begin{picture}(25,15)(0,0)
+    \put(0,-8){\includegraphics[width=8mm, height=8mm]{hcmut.png}}
+    %\put(0,-8){\epsfig{width=10mm,figure=hcmut.eps}}
+   \end{picture}&
+	%\includegraphics[width=8mm, height=8mm]{hcmut.png} & %
+	\begin{tabular}{l}
+		\textbf{\bf \ttfamily \textcolor{blue}{Trường Đại Học Bách Khoa Tp.Hồ Chí Minh}}\\
+		\textbf{\bf \ttfamily \textcolor{blue}{Khoa Khoa Học và Kỹ Thuật Máy Tính}}
+	\end{tabular} 	
+ \end{tabular}
+}
+\fancyhead[R]{
+	\begin{tabular}{l}
+		\tiny \bf \\
+		\tiny \bf 
+	\end{tabular}  }
+\fancyfoot{} % clear all footer fields
+\fancyfoot[L]{\scriptsize \ttfamily Bài tập lớn môn Mô hình hóa toán học (CO2011) - Niên khóa 2022-2023}
+\fancyfoot[R]{\scriptsize \ttfamily Page {\thepage}/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0.3pt}
+
+
+%%%
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{3}
+\makeatletter
+\newcounter {subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection .\@alph\c@subsubsubsection}
+\newcommand\subsubsubsection{\@startsection{subsubsubsection}{4}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+\newcommand*\l@subsubsubsection{\@dottedtocline{3}{10.0em}{4.1em}}
+\newcommand*{\subsubsubsectionmark}[1]{}
+\makeatother
+
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+ĐẠI HỌC QUỐC GIA THÀNH PHỐ HỒ CHÍ MINH \\
+TRƯỜNG ĐẠI HỌC BÁCH KHOA \\
+KHOA KHOA HỌC - KỸ THUẬT MÁY TÍNH
+\end{center}
+
+\vspace{1cm}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=3cm]{hcmut.png}
+\end{center}
+\end{figure}
+
+\vspace{1cm}
+
+
+\begin{center}
+\begin{tabular}{c}
+\multicolumn{1}{l}{\textbf{{\Large \textcolor{blue}{MÔ HÌNH HÓA TOÁN HỌC (CO2011)}}}}\\
+~~\\
+\arrayrulecolor{blue}\hline
+\\
+\multicolumn{1}{l}{\textbf{{\Large \textcolor{blue}{Báo cáo Bài tập lớn}}}}\\
+\\
+\textbf{{\Huge \textcolor{blue}{“Dynamics of Love”}}}\\
+\\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{2cm}
+
+\begin{table}[h]
+\begin{tabular}{rrl}
+\hspace{5 cm} & \textcolor{blue}{GVHH:} & \textcolor{blue}{Nguyễn Tiến Thịnh}\\
+& & \textcolor{blue}{Nguyễn An Khương}\\
+& & \textcolor{blue}{Nguyễn Văn Minh Mẫn}\\
+& & \textcolor{blue}{Mai Xuân Toàn}\\
+& & \textcolor{blue}{Trần Hồng Tài}\\
+& \textcolor{blue}{SV thực hiện:} & \textcolor{blue}{Hà Thuỳ Dương - 2110103 - L01}\\
+& & \textcolor{blue}{Bùi Quang Hưng - 2111392 - L06}\\
+& & \textcolor{blue}{Nguyễn Trung Nghĩa - 2114184 - L06}\\
+& & \textcolor{blue}{Nguyễn Ngọc Thành Đạt - 2111013 - L06}\\
+\end{tabular}
+\end{table}
+
+\begin{center}
+{\footnotesize Tp. Hồ Chí Minh, Tháng 11/2022}
+\end{center}
+\end{titlepage}
+
+
+%\thispagestyle{empty}
+
+\newpage
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Phương trình vi phân}
+    \subsection{Phương trình vi phân thường (ODE)}
+    Phương trình vi phân thường tuyến tính cấp 1 thuần nhất có dạng tổng quát:
+        \begin{align}
+	        \textcolor{blue}{F(t, \dot u, u) = 0} \label{label1}
+	    \end{align}
+    Trong đó:
+
+    \begin{itemize}
+        \item $\textcolor{blue}{F}$ : Hàm vector phụ thuộc vào $\textcolor{blue}{t}$, $\textcolor{blue}{u}$, $\textcolor{blue}{\dot u}$.
+        \item $\textcolor{blue}{t}$ : Biến thời gian.
+        \item $\textcolor{blue}{u}$ : Hàm vector phụ thuộc vào $\textcolor{blue}{t}$.
+        \item $\textcolor{blue}{\dot u}$ : Đạo hàm của $\textcolor{blue}{u}$ theo $\textcolor{blue}{t}$.
+    \end{itemize}
+
+    Mô hình này mô tả sự phát triển của một đại lượng $\textcolor{blue}{u}$ theo thời gian $\textcolor{blue}{t}$.
+    
+    \subsection{Bài toán giá trị ban đầu (IVP)}
+    Nghiệm của phương trình vi phân cấp 1 phụ thuộc vào hằng số $\textcolor{blue}{C}$ tùy ý. Trong thực tế, người ta thường không quan tâm đến tất cả các nghiệm của phương trình mà chỉ chú ý đến những nghiệm $\textcolor{blue}{u(t)}$ của phương trình $\textcolor{blue}{F(t, \dot u, u) = 0}$ \eqref{label1} thỏa mãn điều kiện:
+    \begin{align}
+        \textcolor{blue}{u(t_{0}) = u_{0}} \label{label2}
+    \end{align}
+    Bài toán đặt ra như vậy gọi là {\bfseries Bài toán Cauchy}. Điều kiện \eqref{label2} được gọi là điều kiện ban đầu, $\textcolor{blue}{u_{0}}$ và $\textcolor{blue}{t_{0}}$ là các giá trị ban đầu.
+    
+    \subsection{Sự tồn tại và duy nhất nghiệm}
+    Xét bài toán Cauchy:
+    \begin{align*}
+        \textcolor{blue}{
+        \begin{cases}
+            \dot u = f(u, t) \textcolor{black}{,} \\
+            u(t_{0}) = u_{0}
+        \end{cases}}
+    \end{align*}
+    Giả sử $\textcolor{blue}{f}$ liên tục trên hình chữ nhật đóng $\textcolor{blue}{R = [t_{0} - a, t_{0} + a] \times [u_{0} - b, u_{0} + b] \ (a, b > 0)}$ và $\textcolor{blue}{f}$ thoả mãn điều kiện Lipschitz theo $\textcolor{blue}{u}$ trong $\textcolor{blue}{R}$, tức tồn tại $\textcolor{blue}{K > 0}$ sao cho
+    \begin{align*}
+    \textcolor{blue}{
+        |f(t, u_{1}) - f(t, u_{2})| \leq K|u_{1} - u_{2}|, \ \forall (t, u_{1}), (t, u_{2}) \in R
+    }
+    \end{align*}
+    Khi đó tồn tại duy nhất nghiệm $\textcolor{blue}{u = \varphi (t)}$ của phương trình $\textcolor{blue}{\dot u = f(u, t)}$, liên tục trên \\ $\textcolor{blue}{[t_{0} - h, t_{0} + h] \subset [u_{0} - a, u_{0} + a]}$ và thoả mãn điều kiện ban đầu $\textcolor{blue}{u(t_{0}) = u_{0}}$.\\
+    
+    Như vậy, trên lớp hàm thoả mãn điều kiện Lipschitz bài toán Cauchy tồn tại nghiệm và nghiệm đó là duy nhất.
+
+	\subsection{Hệ phương trình vi phân thường tuyến tính cấp 1 thuần nhất}
+	Phần này ta sẽ nghiên cứu về một hệ phương trình vi phân tuyến tính cấp 1 thuần nhất có thể mô tả tình yêu giữa hai người.
+	    \subsubsection{Lập mô hình toán học}
+	Hệ phương trình vi phân tuyến tính cấp 1 thuần nhất với giá trị ban đầu (Xét hệ gồm 2 phương trình) có dạng tổng quát:
+	\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R(t) = aR(t) + bJ(t) \textcolor{black}{,}\\
+            \dot J(t) = cR(t) + dJ(t) \textcolor{black}{,}\\
+            R(0) = R_{0}\textcolor{black}{,} \enskip J(0) = J_{0} \textcolor{black}{.}
+        \end{cases}
+        }
+        \label{label3}
+	\end{align}
+    Trong đó:
+    \begin{itemize}
+        \item $\textcolor{blue}{R(t)}$ : $\textcolor{blue}{\mathbb{R}^{+} \cup \{0\} \to \mathbb{R}}$ : Tình yêu của Romeo dành cho Juliet vào thời điểm $\textcolor{blue}{t}$.
+        \item $\textcolor{blue}{J(t)}$ : $\textcolor{blue}{\mathbb{R}^{+} \cup \{0\} \to \mathbb{R}}$ : Tình yêu Juliet dành cho Romeo vào thời điểm $\textcolor{blue}{t}$.
+        \item $\textcolor{blue}{R_{0}}$, $\textcolor{blue}{J_{0}}$ $\textcolor{blue}{\in \mathbb{R}}$ : Tình yêu của Romeo dành cho Juliet và Juliet dành cho Romeo vào thời điểm ban đầu.
+        \item $\textcolor{blue}{a}$, $\textcolor{blue}{b}$, $\textcolor{blue}{c}$, $\textcolor{blue}{d}$ $\textcolor{blue}{\in\mathbb{R}}$ : Các hệ số hằng mô tả sự tương tác trong tình yêu của người này với người kia. Chúng ta có thể xác định phong cách lãng mạng trong tình yêu của Romeo dành cho Juliet cũng như Juliet dành cho Romeo thông qua các hệ số này.\\
+        \begin{table}[!htp]
+        \centering
+        \begin{tabular}{lll}
+            \toprule
+            $\textcolor{blue}{a}$ & $\textcolor{blue}{b}$  & {\bfseries Style}\\
+            \midrule
+            $\textcolor{blue}{+}$  & $\textcolor{blue}{+}$  & Eager Beaver\\
+            $\textcolor{blue}{+}$  & $\textcolor{blue}{-}$  & Narcissistic Nerd\\
+            $\textcolor{blue}{-}$  & $\textcolor{blue}{+}$  & Cautious Lover\\
+            $\textcolor{blue}{-}$  & $\textcolor{blue}{-}$  & Hermit\\
+            \bottomrule
+        \end{tabular}
+        \caption{Các phong cách lãng mạn trong tình yêu}
+        \label{bang1}
+        \end{table}
+    \end{itemize}
+        \subsubsection{Tìm nghiệm của mô hình}
+    Các bước để tìm nghiệm của Hệ phương trình vi phân \eqref{label3}:\\\\
+    {\bfseries Bước 1 :} Chuyển Hệ phương trình vi phân \eqref{label3} về dạng:
+    \begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+        \label{label4}
+	\end{align}
+    Trong đó, $\textcolor{blue}{A = \begin{pmatrix} a & b\\ c & d \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} R\sb{0} & J\sb{0} \end{pmatrix}\sp{T}}$.\\\\
+    {\bfseries Bước 2 :} Tìm trị riêng $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ từ phương trình đặc trưng:
+    \begin{align}
+	    \textcolor{blue}{det(A - \lambda I) = 0}
+        \label{label5}
+	\end{align}
+	{\bfseries Bước 3 :} Tìm vector riêng $\textcolor{blue}{V \ (V \neq 0)}$ của ma trận $\textcolor{blue}{A}$ ứng với từng trị riêng $\textcolor{blue}{\lambda}$.\\
+	(Xem chi tiết ở Bảng \ref{tab2})\\\\
+	{\bfseries Bước 4} : Tìm nghiệm tổng quát $\textcolor{blue}{u(t, C\sb{1}, C\sb{2})}$.\\ (Xem chi tiết ở Bảng \ref{tab2})\\\\
+    {\bfseries Bước 5 :} Xác định giá trị các hằng số $\textcolor{blue}{C\sb{1}}$, $\textcolor{blue}{C\sb{2}}$ từ điều kiện ban đầu $\textcolor{blue}{u(0) = u\sb{0}}$.\\
+    
+\begin{table}[!htp]
+        \centering   
+    \begin{tabular}{llll}
+    \toprule
+    {\bfseries Trường hợp} & {\bfseries Vector riêng $\textcolor{blue}{V}$} & {\bfseries Công thức nghiệm tổng quát}\\
+    \midrule
+    2 nghiệm thực & $\textcolor{blue}{(A - \lambda\sb{1}I)V\sb{1} = 0}$  & $\textcolor{blue}{u = C\sb{1} e\sp{\lambda\sb{1}t}V\sb{1} + C\sb{2} e\sp{\lambda\sb{2}t}V\sb{2}}$ & (I)\\
+    phân biệt ($\textcolor{blue}{\lambda \sb{1} \neq \lambda \sb{2}}$) & $\textcolor{blue}{(A - \lambda\sb{2}I)V\sb{2} = 0}$ & \\
+    \addlinespace
+    \midrule
+    1 nghiệm kép & $\textcolor{blue}{(A - \lambda\sb{1}I)V\sb{1} = 0}$ & $\textcolor{blue}{u = C\sb{1} e\sp{\lambda\sb{1}t}V\sb{1} + C\sb{2} e\sp{\lambda\sb{1}t}(t V\sb{1} + V\sb{2})}$ & (II)\\
+    ($\textcolor{blue}{\lambda \sb{1} = \lambda\sb{2}}$) & $\textcolor{blue}{(A - \lambda\sb{1}I)V\sb{2} = V\sb{1}}$\\
+    \addlinespace
+    \cmidrule{2-4}
+    &\multicolumn{2}{l}{Nếu $\textcolor{blue}{(A - \lambda\sb{1}I) = \begin{bmatrix} 0 & 0 \\ 0 & 0\end{bmatrix}}$ thì ta chọn $\textcolor{blue}{V\sb{1} = {\begin{bmatrix} 1 \\ 0 \end{bmatrix}}}$, $\textcolor{blue}{V\sb{2} = {\begin{bmatrix} 0 \\ 1 \end{bmatrix}}}$} & (III)\\
+    & \multicolumn{2}{l}{và áp dụng Công thức nghiệm tổng quát ở Trường hợp (I).}\\
+    \addlinespace
+    \midrule
+    \addlinespace
+    Nghiệm phức $\textcolor{blue}{\lambda}$ & $\textcolor{blue}{(A - \lambda\sb{1}I)V\sb{1} = 0}$ & $\textcolor{blue}{u = V\sb{1}e\sp{\lambda\sb{1}t}}$\\
+    ($\textcolor{blue}{\lambda\sb{1} = Re \lambda + |Im \lambda| i}$) & & $\enskip \ \textcolor{blue}{= V\sb{1}e\sp{Re\lambda .t}\big(\cos (|Im\lambda| .t) + i\sin (|Im\lambda| .t)\big)}$\\
+    & & $\enskip \ \textcolor{blue}{= e\sp{Re\lambda .t}\Bigg(\begin{bmatrix} g\sb{1}(t) \\ g\sb{2}(t) \end{bmatrix}  + i\begin{bmatrix} g\sb{3}(t)\\ g\sb{4}(t) \end{bmatrix}\Bigg)}$\\
+    & & \enskip \ $\textcolor{blue}{= e\sp{Re\lambda .t}\Bigg(C\sb{1} \begin{bmatrix} g\sb{1}(t) \\ g\sb{2}(t) \end{bmatrix}  + C\sb{2}\begin{bmatrix} g\sb{3}(t) \\ g\sb{4}(t) \end{bmatrix}\Bigg)}$ & (IV)\\
+    & & \tiny{*Với $\textcolor{blue}{g(t)}$ là các hàm số theo biến $\textcolor{blue}{t}$ được rút ra từ biểu thức ở dòng trên.}\\
+    \addlinespace
+    \bottomrule
+    \addlinespace
+    \end{tabular}
+    \caption{Công thức nghiệm tổng quát cho từng trường hợp} \label{tab2}
+\end{table}
+\newpage
+    \subsubsection{Phân loại Biểu đồ pha (Phase Portraits)}
+    (Xem kết hợp Bảng 2 và Bảng 3)
+    \begin{table}[!htp]
+        \centering
+        \begin{tabular}{lcccclll}
+        \toprule
+        {\bfseries Trường hợp} & $\textcolor{blue}{Re \lambda\sb{1}}$ & $\textcolor{blue}{Re \lambda\sb{2}}$ & $\textcolor{blue}{|Im \lambda\sb{1}|}$ & $\textcolor{blue}{|Im \lambda\sb{2}|}$ & {\bfseries Type} & \\
+        \toprule
+        2 nghiệm thực & $\textcolor{blue}{+}$ & $\textcolor{blue}{+}$ & $\textcolor{blue}{0}$ & $\textcolor{blue}{0}$ & Source (Unstable node) & (I)\\
+        phân biệt & $\textcolor{blue}{-}$ & $\textcolor{blue}{-}$ & $\textcolor{blue}{0}$ & $\textcolor{blue}{0}$ & Sink (Stable node)\\
+        ($\textcolor{blue}{\lambda\sb{1} \neq \lambda\sb{2}}$) & $\textcolor{blue}{+}$ & $\textcolor{blue}{-}$ & $\textcolor{blue}{0}$ & $\textcolor{blue}{0}$ & Saddle point\\
+        & $\textcolor{blue}{0}$ & $\textcolor{blue}{+}$ & $\textcolor{blue}{0}$ & $\textcolor{blue}{0}$ & Unstable line of fixed points\\
+        & $\textcolor{blue}{0}$ & $\textcolor{blue}{-}$ & $\textcolor{blue}{0}$ & $\textcolor{blue}{0}$ & Stable line of fixed points\\
+        \midrule
+        1 nghiệm kép & $\textcolor{blue}{+}$ & $\textcolor{blue}{+}$ & $\textcolor{blue}{0}$ & $\textcolor{blue}{0}$ & Unstable degenerate node & (II)\\
+        ($\textcolor{blue}{\lambda\sb{1} = \lambda\sb{2}}$) & $\textcolor{blue}{-}$ & $\textcolor{blue}{-}$ & $\textcolor{blue}{0}$ & $\textcolor{blue}{0}$ & Stable degenerate node\\
+        \cmidrule{2-7}
+        & $\textcolor{blue}{+}$ & $\textcolor{blue}{+}$ & $\textcolor{blue}{0}$ & $\textcolor{blue}{0}$ & Unstable star & (III)\\
+        & $\textcolor{blue}{-}$ & $\textcolor{blue}{-}$ & $\textcolor{blue}{0}$ & $\textcolor{blue}{0}$ & Stable star\\
+        \midrule
+        Nghiệm phức & $\textcolor{blue}{+}$ & $\textcolor{blue}{+}$ & $\textcolor{blue}{+}$ & $\textcolor{blue}{+}$ & Unstable spiral & (IV)\\
+        ($\textcolor{blue}{\lambda = Re \lambda \pm Im \lambda .i}$) & $\textcolor{blue}{-}$ & $\textcolor{blue}{-}$ & $\textcolor{blue}{+}$ & $\textcolor{blue}{+}$ & Stable spiral\\
+        & $\textcolor{blue}{0}$ & $\textcolor{blue}{0}$ & $\textcolor{blue}{+}$ & $\textcolor{blue}{+}$ & Center\\
+        \bottomrule
+        \end{tabular}
+        \caption{Phân loại biểu đồ pha}
+        \label{tab:my_label}
+    \end{table}
+    
+    \begin{figure}[!htp] \label{fig:three-alternative-operations} 
+    \centering
+    \begin{tabular}{ccc} 
+        \subfloat[Source (Unstable node)]{
+        \includegraphics[width=4cm]{Source (Unstable node).png}} & 
+        
+        \subfloat[Sink (Stable node)]{
+        \includegraphics[width=4cm]{Sink (Stable node).png}} &
+
+        \subfloat[Saddle Point]{
+        \includegraphics[width=4cm]{SaddlePoint.png}} \\
+        
+        \subfloat[Unstable line of fixed points]{
+        \includegraphics[width=4cm]{Unstable line of fixed points.png}} &
+
+        \subfloat[Stable line of fixed points]{
+        \includegraphics[width=4cm]{Stable line of fixed points.png}} 
+    \end{tabular} 
+    \caption{Biểu đồ pha trường hợp 2 nghiệm thực phân biệt ($\textcolor{blue}{\lambda\sb{1} \neq \lambda\sb{2}}$)} 
+    \end{figure}
+    
+    \begin{figure}[!htp] \label{fig:three-alternative-operations}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[Unstable degenerate node]{
+        \includegraphics[width=4cm]{Unstable degenerate node.png}} & 
+        
+        \subfloat[Stable degenerate node]{
+        \includegraphics[width=4cm]{Stable degenerate node.png}} \\
+        
+        \subfloat[Unstable star]{
+        \includegraphics[width=4cm]{Unstable star.png}} &
+
+        \subfloat[Stable star]{
+        \includegraphics[width=4cm]{Stable star.png}} \\
+        
+    \end{tabular} 
+    \caption{Biểu đồ pha trường hợp 1 nghiệm kép ($\textcolor{blue}{\lambda\sb{1} = \lambda\sb{2}}$)} 
+    \end{figure}
+
+    \begin{figure}[!htp] \label{fig:three-alternative-operations}
+    \centering
+    \begin{tabular}{ccc} 
+        \subfloat[Unstable spiral]{
+        \includegraphics[width=4cm]{Unstable spiral.png}} & 
+        
+        \subfloat[Stable spiral]{
+        \includegraphics[width=4cm]{Stable spiral.png}} &
+        
+        \subfloat[Center]{
+        \includegraphics[width=4cm]{Center.png}}   
+    \end{tabular} 
+    \caption{Biểu đồ pha trường hợp nghiêm phức ($\textcolor{blue}{\lambda = Re \lambda \pm Im \lambda .i}$)} 
+    \end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Các ví dụ cụ thể cho từng cặp xu hướng}
+\subsection{Eager Beaver and Eager Beaver}
+\subsubsection{Ví dụ 1}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = R + 2J \textcolor{black}{,}\\
+            \dot J = 3R + 2J \textcolor{black}{,}\\
+            R(0) = 3\textcolor{black}{,} \enskip J(0) = 5 \textcolor{black}{.}
+        \end{cases}
+        }
+        \label{label6}
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+        \label{label4}
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} 1 & 2\\ 3 & 2 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 3 & 5 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{1}}$$\textcolor{blue}{=4}$ và $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{2}}$$\textcolor{blue}{=-1}$.\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} 2 & 3 \end{pmatrix}\sp{T}}$\enskip và \enskip $\textcolor{blue}{V\sb{2} = \begin{pmatrix} 1 & -1 \end{pmatrix}\sp{T}}$\enskip tương ứng với mỗi trị riêng.\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:
+$\textcolor{blue}{u = C\sb{1} e\sp{4t}\begin{pmatrix} 2 \\ 3 \end{pmatrix} + C\sb{2} e\sp{-t}\begin{pmatrix} 1 \\ -1 \end{pmatrix}}$.\\\\
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 3 & 5 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm: $\textcolor{blue}{u =\dfrac{8}{5} e\sp{4t}\begin{pmatrix} 2 \\ 3 \end{pmatrix} - \dfrac{1}{5} e\sp{-t}\begin{pmatrix} 1 \\ -1 \end{pmatrix}}$.\\\\
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=\dfrac{16}{5}e^{4t}-\dfrac{1}{5}e^{-t}\\
+            J(t)=\dfrac{24}{5}e^{4t}+\dfrac{1}{5}e^{-t}
+        \end{cases}
+        }
+\notag
+\end{align}
+
+\begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.1.1.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.1.1.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between an eager beaver and an eager beaver - 2.1.1}} 
+\end{figure}
+
+\subsubsection{Ví dụ 2}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = 2R + J \textcolor{black}{,}\\
+            \dot J = 6R + 4J \textcolor{black}{,}\\
+            R(0) = -3\textcolor{black}{,} \enskip J(0) = 1 \textcolor{black}{.}
+        \end{cases}
+        }
+        \label{label6}
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+        \label{label4}
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} 2 & 1\\ 6 & 4 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} -3 & 1 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{1}}$$\textcolor{blue}{=3+\sqrt{7}}$ và $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{2}}$$\textcolor{blue}{=3-\sqrt{7}}$.\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} 1 & 1+\sqrt{7} \end{pmatrix}\sp{T}}$\enskip và \enskip $\textcolor{blue}{V\sb{2} = \begin{pmatrix} 1 & 1-\sqrt{7} \end{pmatrix}\sp{T}}$\enskip tương ứng với mỗi trị riêng.\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:
+$\textcolor{blue}{u = C\sb{1} e\sp{(3+\sqrt{7})t}\begin{pmatrix} 1 \\ 1+\sqrt{7} \end{pmatrix} + C\sb{2} e\sp{(3-\sqrt{7})t}\begin{pmatrix} 1 \\ 1-\sqrt{7} \end{pmatrix}}$.\\\\
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} -3 & 1 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm:
+\begin{center}
+    $\textcolor{blue}{u =(-\dfrac{3}{2}+\dfrac{4\sqrt{7}}{14})e\sp{(3+\sqrt{7})t}\begin{pmatrix} 1 \\ 1+\sqrt{7} \end{pmatrix} + (-\dfrac{3}{2}-\dfrac{4\sqrt{7}}{14})e\sp{(3-\sqrt{7})t}\begin{pmatrix} 1 \\ 1-\sqrt{7} \end{pmatrix}}$.
+\end{center}
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=(-\dfrac{3}{2}+\dfrac{4\sqrt{7}}{14})e\sp{(3+\sqrt{7})t}+ (-\dfrac{3}{2}-\dfrac{4\sqrt{7}}{14})e\sp{(3-\sqrt{7})t}\\
+            J(t)=(\dfrac{1}{2}-\dfrac{17\sqrt{7}}{14})e\sp{(3+\sqrt{7})t}+ (\dfrac{1}{2}+\dfrac{17\sqrt{7}}{14})e\sp{(3-\sqrt{7})t}
+        \end{cases}
+        }
+\notag
+	\end{align}
+
+
+\begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.1.2.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.1.2.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between an eager beaver and an eager beaver - 2.1.2}} 
+\end{figure}
+
+\subsection{Eager Beaver and Narcissistic Nerd}
+\subsubsection{Ví dụ 1}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = R + 2J \textcolor{black}{,}\\
+            \dot J = R - J \textcolor{black}{,}\\
+            R(0) = 1\textcolor{black}{,} \enskip J(0) = 2 \textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} 1 & 2\\ 1 & -1 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 1 & 2 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{1}}$$\textcolor{blue}{=\sqrt{3}}$ và $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{2}}$$\textcolor{blue}{=-\sqrt{3}}$.\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} 1+\sqrt{3} & 1 \end{pmatrix}\sp{T}}$\enskip và \enskip $\textcolor{blue}{V\sb{2} = \begin{pmatrix} 1-\sqrt{3} & 1 \end{pmatrix}\sp{T}}$\enskip tương ứng với mỗi trị riêng.\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:
+$\textcolor{blue}{u = C\sb{1} e\sp{\sqrt{3}t}\begin{pmatrix} 1+\sqrt{3} \\ 1 \end{pmatrix} + C\sb{2} e\sp{-\sqrt{3}t}\begin{pmatrix} 1-\sqrt{3} \\ 1 \end{pmatrix}}$.\\\\
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 1 & 2 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm:
+\begin{center}
+    $\textcolor{blue}{u =(1 - \dfrac{\sqrt{3}}{6}) e\sp{\sqrt{3}t}\begin{pmatrix} 1+\sqrt{3} \\ 1 \end{pmatrix} + (1 + \dfrac{\sqrt{3}}{6}) e\sp{-\sqrt{3}t}\begin{pmatrix} 1-\sqrt{3} \\ 1 \end{pmatrix}}$.
+\end{center}
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=(\dfrac{1}{2}+\dfrac{5\sqrt{3}}{6})e\sp{\sqrt{3}t}+ (\dfrac{1}{2}-\dfrac{5\sqrt{3}}{6})e\sp{-\sqrt{3}t}\\
+            J(t)=(1 - \dfrac{\sqrt{3}}{6}) e\sp{\sqrt{3}t}+ (1 + \dfrac{\sqrt{3}}{6}) e\sp{-\sqrt{3}t}
+        \end{cases}
+        }
+\notag
+	\end{align}
+
+\begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.2.1.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.2.1.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between an eager beaver and a narcissistic nerd - 2.2.1}} 
+\end{figure}
+
+\subsubsection{Ví dụ 2}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = R - J \textcolor{black}{,}\\
+            \dot J = R + J \textcolor{black}{,}\\
+            R(0) = -1\textcolor{black}{,} \enskip J(0) = 5 \textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} 1 & -1\\ 1 & 1 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} -1 & 5 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{1}}$$\textcolor{blue}{=2+i}$ .\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} 1 & -i \end{pmatrix}\sp{T}}$\enskip\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:\\\\
+$\textcolor{blue}{u = C\sb{1} e\sp{2t}\begin{pmatrix} \sin{t} \\ -\cos{t} \end{pmatrix} + C\sb{2} e\sp{2t}\begin{pmatrix} \cos{t} \\ \sin{t} \end{pmatrix}}$.\\\\
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} -1 & 5 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm:\\\\ $\textcolor{blue}{u = -5 e\sp{2t}\begin{pmatrix} \sin{t} \\ -\cos{t} \end{pmatrix} - e\sp{2t}\begin{pmatrix} \cos{t} \\ \sin{t} \end{pmatrix}}$.\\\\
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=-5 e\sp{2t}\sin{t}- e\sp{2t} \cos{t}\\
+            J(t)=5e\sp{2t}\ \cos{t}- e\sp{2t}\sin{t}
+        \end{cases}
+        }
+\notag
+	\end{align}
+
+\begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.2.2.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.2.2.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between an eager beaver and an eager beaver - 2.2.2}} 
+\end{figure}
+
+\subsection{Eager Beaver and Cautious Lover}
+\subsubsection{Ví dụ 1}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = -2R + 5J \textcolor{black}{,}\\
+            \dot J = R + 2J \textcolor{black}{,}\\
+            R(0) = 3\textcolor{black}{,} \enskip J(0) = 5 \textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} -2 & 5\\ 1 & 2 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 3 & 5 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{1}}$$\textcolor{blue}{=3}$ và $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{2}}$$\textcolor{blue}{=-3}$.\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} 1 & 1 \end{pmatrix}\sp{T}}$\enskip và \enskip $\textcolor{blue}{V\sb{2} = \begin{pmatrix} 1 & -1 \end{pmatrix}\sp{T}}$\enskip tương ứng với mỗi trị riêng.\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:
+$\textcolor{blue}{u = C\sb{1} e\sp{3t}\begin{pmatrix} 1 \\ 1 \end{pmatrix} + C\sb{2} e\sp{-3t}\begin{pmatrix} 1 \\ -1 \end{pmatrix}}$.\\\\
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 3 & 5 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm: $\textcolor{blue}{u = 4 e\sp{3t}\begin{pmatrix} 1 \\ 1 \end{pmatrix} - e\sp{-3t}\begin{pmatrix} 1 \\ -1 \end{pmatrix}}$.\\\\
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=4e\sp{3t}- e\sp{-3t}\\
+            J(t)=4e\sp{3t}+ e\sp{-3t}
+        \end{cases}
+        }
+\notag
+	\end{align}
+
+\begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.3.1.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.3.1.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between an eager beaver and a cautious lover - 2.3.1}} 
+\end{figure}
+
+\subsubsection{Ví dụ 2}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = 2R + 0J \textcolor{black}{,}\\
+            \dot J = -R + 2J \textcolor{black}{,}\\
+            R(0) = 1\textcolor{black}{,} \enskip J(0) = 2 \textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+       \notag
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} 2 & 0\\ -1 & 2 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 1 & 2 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng kép $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{=2}$.\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} 0 & 1 \end{pmatrix}\sp{T}}$\enskip và \enskip $\textcolor{blue}{V\sb{2} = \begin{pmatrix} -1 & 0 \end{pmatrix}\sp{T}}$\enskip tương ứng trị riêng kép này.\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:
+$\textcolor{blue}{u = C\sb{1} e\sp{2t}\begin{pmatrix} 0 \\ 1 \end{pmatrix} + C\sb{2} e\sp{2t}(t\begin{pmatrix} 0 \\ 1 \end{pmatrix} + \begin{pmatrix} -1 \\ 0 \end{pmatrix})}$.\\\\
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 1 & 2 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm: $\textcolor{blue}{u = 2 e\sp{2t}\begin{pmatrix} 0 \\ 1 \end{pmatrix} - e\sp{2t}(t\begin{pmatrix} 0 \\ 1 \end{pmatrix} + \begin{pmatrix} -1 \\ 0 \end{pmatrix})}$.\\\\
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=e\sp{2t}\\
+            J(t)=(2 - t)e\sp{2t}
+        \end{cases}
+        }
+\notag
+	\end{align}
+ 
+\begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.3.2.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.3.2.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between an eager beaver and a cautious lover - 2.3.2}}
+\end{figure}
+
+\subsection{Eager Beaver and Hermit}
+\subsubsection{Ví dụ 1}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = 4R + 6J \textcolor{black}{,}\\
+            \dot J = -R - J \textcolor{black}{,}\\
+            R(0) = 2\textcolor{black}{,} \enskip J(0) = 0 \textcolor{black}{.}
+        \end{cases}
+        }
+       \notag
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} 4 & 6\\ -1 & -1 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 2 & 0 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{1}}$$\textcolor{blue}{=2}$ và $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{2}}$$\textcolor{blue}{=1}$.\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} 3 & -1 \end{pmatrix}\sp{T}}$\enskip và \enskip $\textcolor{blue}{V\sb{2} = \begin{pmatrix} 2 & -1 \end{pmatrix}\sp{T}}$\enskip tương ứng với mỗi trị riêng.\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:
+$\textcolor{blue}{u = C\sb{1} e\sp{2t}\begin{pmatrix} 3 \\ -1 \end{pmatrix} + C\sb{2} e\sp{t}\begin{pmatrix} 2 \\ -1 \end{pmatrix}}$.\\\\
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 2 & 0 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm: $\textcolor{blue}{u = 2 e\sp{2t}\begin{pmatrix} 3 \\ -1 \end{pmatrix} - 2 e\sp{t}\begin{pmatrix} 2 \\ -1 \end{pmatrix}}$.\\\\
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=6e\sp{2t} -4e\sp{t}\\
+            J(t)=-2e\sp{2t} +2e\sp{t}
+        \end{cases}
+        }
+\notag
+	\end{align}
+ 
+\begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.4.1.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.4.1.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between an eager beaver and a hermit - 2.4.1}} 
+\end{figure}
+
+\subsubsection{Ví dụ 2}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = -3R - J \textcolor{black}{,}\\
+            \dot J = 3R + J \textcolor{black}{,}\\
+            R(0) = 2\textcolor{black}{,} \enskip J(0) = 0 \textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} -3 & -1\\ 3 & 1 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 2 & 0 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{1}}$$\textcolor{blue}{=0}$ và $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{2}}$$\textcolor{blue}{=-2}$.\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} 1 & 3 \end{pmatrix}\sp{T}}$\enskip và \enskip $\textcolor{blue}{V\sb{2} = \begin{pmatrix} 1 & -1 \end{pmatrix}\sp{T}}$\enskip tương ứng với mỗi trị riêng.\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:
+$\textcolor{blue}{u = C\sb{1} e\sp{0t}\begin{pmatrix} 1 \\ 3 \end{pmatrix} + C\sb{2} e\sp{-2t}\begin{pmatrix} 1 \\ -1 \end{pmatrix}}$.\\\\
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 2 & 0 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm: $\textcolor{blue}{u = \dfrac{1}{2} e\sp{0t}\begin{pmatrix} 1 \\ 3 \end{pmatrix} + \dfrac{3}{2} e\sp{-2t}\begin{pmatrix} 1 \\ -1 \end{pmatrix}}$.\\\\
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=\dfrac{1}{2} +\dfrac{3}{2}e\sp{-2t}\\
+            J(t)=\dfrac{3}{2} -\dfrac{3}{2}e\sp{-2t}
+        \end{cases}
+        }
+\notag
+	\end{align}
+ 
+\begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.4.2.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.4.2.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between an eager beaver and a hermit - 2.4.2}} 
+\end{figure}
+
+\subsection{Narcissistic Nerd and Narcissistic Nerd}
+\subsubsection{Ví dụ 1}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = 2R - J \textcolor{black}{,}\\
+            \dot J = 5R - 4J \textcolor{black}{,}\\
+            R(0) = -2\textcolor{black}{,} \enskip J(0) = 4 \textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} 2 & -1\\ 5 & -4 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} -2 & 4 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{1}}$$\textcolor{blue}{=1}$ và $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{2}}$$\textcolor{blue}{=-3}$.\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} 1 & 1 \end{pmatrix}\sp{T}}$\enskip và \enskip $\textcolor{blue}{V\sb{2} = \begin{pmatrix} 1 & 5 \end{pmatrix}\sp{T}}$\enskip tương ứng với mỗi trị riêng.\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:
+$\textcolor{blue}{u = C\sb{1} e\sp{t}\begin{pmatrix} 1 \\ 1 \end{pmatrix} + C\sb{2} e\sp{-3t}\begin{pmatrix} 1 \\ 5 \end{pmatrix}}$.\\\\
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} -2 & 4 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm: $\textcolor{blue}{u = -\dfrac{7}{2} e\sp{t}\begin{pmatrix} 1 \\ 1 \end{pmatrix} + \dfrac{3}{2} e\sp{-3t}\begin{pmatrix} 1 \\ 5 \end{pmatrix}}$.\\\\
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=-\dfrac{7}{2}e\sp{t} +\dfrac{3}{2}e\sp{-3t}\\
+            J(t)=-\dfrac{7}{2}e\sp{t} +\dfrac{15}{2}e\sp{-3t}
+        \end{cases}
+        }
+\notag
+	\end{align}
+
+\begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.5.1.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.5.1.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between a narcissistic nerd and a narcissistic nerd - 2.5.1}} 
+\end{figure}
+
+\subsubsection{Ví dụ 2}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = 3R - 2J \textcolor{black}{,}\\
+            \dot J = 4R - 1J \textcolor{black}{,}\\
+            R(0) = -2\textcolor{black}{,} \enskip J(0) = 4 \textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} 3 & -2\\ 4 & -1 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} -2 & 4 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{1}}$$\textcolor{blue}{=1+2i}$ .\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} 1 & 1-i \end{pmatrix}\sp{T}}$\enskip\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:\\\\
+$\textcolor{blue}{u = C\sb{1} e\sp{2t}\begin{pmatrix} \cos{2t} \\  \cos{2t}+\sin{2t} \end{pmatrix} + C\sb{2} e\sp{2t}\begin{pmatrix} \sin{2t} \\ -\cos{2t}+\sin{2t} \end{pmatrix}}$.\\\\
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} -2 & 4 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm:\\\\ $\textcolor{blue}{u =  e\sp{t}\begin{pmatrix} -6\sin{2t}-2\cos{2t} \\  4\cos{2t}-8\sin{2t} \end{pmatrix}}$ .\\\\
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=-6e^{t}\sin{2t}-2e^{t}\cos{2t}\\
+            J(t)=4e^{t}\cos{2t}-8e^{t}\sin{2t}
+        \end{cases}
+        }
+\notag
+	\end{align}
+
+\begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.5.2.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.5.2.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between a narcissistic nerd and a narcissistic nerd - 2.5.2}} 
+\end{figure}
+    
+\subsection{Narcissistic Nerd and Cautious Lover}
+\subsubsection{Ví dụ 1}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = 2R - J \textcolor{black}{,}\\
+            \dot J = -R + 2J \textcolor{black}{,}\\
+            R(0) = 1\textcolor{black}{,} \enskip J(0) = 4 \textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+       \notag
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} 2 & -1\\ -1 & 2 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 1 & 4 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{1}}$$\textcolor{blue}{=3}$ và $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{2}}$$\textcolor{blue}{=1}$.\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} 1 & -1 \end{pmatrix}\sp{T}}$\enskip và \enskip $\textcolor{blue}{V\sb{2} = \begin{pmatrix} 1 & 1 \end{pmatrix}\sp{T}}$\enskip tương ứng với mỗi trị riêng.\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:
+$\textcolor{blue}{u = C\sb{1} e\sp{3t}\begin{pmatrix} 1 \\ -1 \end{pmatrix} + C\sb{2} e\sp{t}\begin{pmatrix} 1 \\ 1 \end{pmatrix}}$.\\\\
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 1 & 4 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm: $\textcolor{blue}{u = -\dfrac{3}{2} e\sp{3t}\begin{pmatrix} 1 \\ -1 \end{pmatrix} + \dfrac{5}{2} e\sp{t}\begin{pmatrix} 1 \\ 1 \end{pmatrix}}$.\\\\
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=-\dfrac{3}{2}e\sp{3t} +\dfrac{5}{2}e\sp{t}\\
+            J(t)= \dfrac{3}{2}e\sp{3t} +\dfrac{5}{2}e\sp{t}
+        \end{cases}
+        }
+\notag
+	\end{align}
+
+\begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.6.1.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.6.1.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between a narcissistic nerd and a cautious lover - 2.6.1}} 
+\end{figure}
+    
+\subsubsection{Ví dụ 2}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = R - 3J \textcolor{black}{,}\\
+            \dot J = -2R + 6J \textcolor{black}{,}\\
+            R(0) = 1\textcolor{black}{,} \enskip J(0) = 4 \textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} 1 & -3\\ -2 & 6 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 1 & 4 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{1}}$$\textcolor{blue}{=0}$ và $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{2}}$$\textcolor{blue}{=7}$.\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} 3 & 1 \end{pmatrix}\sp{T}}$\enskip và \enskip $\textcolor{blue}{V\sb{2} = \begin{pmatrix} 1 & -2 \end{pmatrix}\sp{T}}$\enskip tương ứng với mỗi trị riêng.\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:
+$\textcolor{blue}{u = C\sb{1} e\sp{0t}\begin{pmatrix} 3 \\ 1 \end{pmatrix} + C\sb{2} e\sp{7t}\begin{pmatrix} 1 \\ -2 \end{pmatrix}}$.\\\\
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 1 & 4 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm: $\textcolor{blue}{u = \dfrac{6}{7} e\sp{0t}\begin{pmatrix} 3 \\ 1 \end{pmatrix} - \dfrac{11}{7} e\sp{7t}\begin{pmatrix} 1 \\ -2 \end{pmatrix}}$.\\\\
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=\dfrac{18}{7} -\dfrac{11}{7}e\sp{7t}\\
+            J(t)= \dfrac{6}{7} +\dfrac{22}{7}e\sp{7t}
+        \end{cases}
+        }
+\notag
+	\end{align}
+
+\begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.6.2.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.6.2.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between a narcissistic nerd and a cautious lover - 2.6.2}} 
+\end{figure}
+    
+\subsection{Narcissistic Nerd and Hermit}
+\subsubsection{Ví dụ 1}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = 2R - 2J \textcolor{black}{,}\\
+            \dot J = -R - 4J \textcolor{black}{,}\\
+            R(0) = 1\textcolor{black}{,} \enskip J(0) = -1 \textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} 2 & -2\\ -1 & -4 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 1 & -1 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{1}}$$\textcolor{blue}{=-1+\sqrt{11}}$ và $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{2}}$$\textcolor{blue}{=-1-\sqrt{11}}$.\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} -3-\sqrt{11} & 1 \end{pmatrix}\sp{T}}$\enskip và \enskip $\textcolor{blue}{V\sb{2} = \begin{pmatrix} -3+\sqrt{11} & 1 \end{pmatrix}\sp{T}}$\enskip tương ứng với mỗi trị riêng.\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:
+\begin{center}
+    $\textcolor{blue}{u = C\sb{1} e\sp{(-1+\sqrt{11})t}\begin{pmatrix} -3-\sqrt{11} \\ 1 \end{pmatrix} + C\sb{2} e\sp{(-1-\sqrt{11})t}\begin{pmatrix} -3+\sqrt{11} \\ 1 \end{pmatrix}}$.
+\end{center}
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 1 & -1 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm:
+\begin{center}
+    $\textcolor{blue}{u = (-\dfrac{1}{2}+\dfrac{\sqrt{11}}{11}) e\sp{(-1+\sqrt{11})t}\begin{pmatrix} -3-\sqrt{11} \\ 1 \end{pmatrix} + (-\dfrac{1}{2}-\dfrac{\sqrt{11}}{11}) e\sp{(-1-\sqrt{11})t}\begin{pmatrix} -3+\sqrt{11} \\ 1 \end{pmatrix}}$.
+\end{center}
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=(\dfrac{1}{2}+\dfrac{5\sqrt{11}}{22}) e\sp{(-1+\sqrt{11})t}+ (\dfrac{1}{2}-\dfrac{5\sqrt{11}}{22}) e\sp{(-1-\sqrt{11})t}\\
+            J(t)=(-\dfrac{1}{2}+\dfrac{\sqrt{11}}{11}) e\sp{(-1+\sqrt{11})t}+ (-\dfrac{1}{2}-\dfrac{\sqrt{11}}{11}) e\sp{(-1-\sqrt{11})t}
+        \end{cases}
+        }
+\notag
+	\end{align}
+
+\begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.7.1.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.7.1.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between a narcissistic nerd and a hermit - 2.7.1}} 
+\end{figure}
+    
+\subsubsection{Ví dụ 2}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = 2R - 3J \textcolor{black}{,}\\
+            \dot J = -R - 4J \textcolor{black}{,}\\
+            R(0) = 3\textcolor{black}{,} \enskip J(0) = -3 \textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} 2 & -3\\ -1 & -4 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 3 & -3 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{1}}$$\textcolor{blue}{=-1+2\sqrt{3}}$ và $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{2}}$$\textcolor{blue}{=-1-2\sqrt{3}}$.\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} -3-2\sqrt{3} & 1 \end{pmatrix}\sp{T}}$\enskip và \enskip $\textcolor{blue}{V\sb{2} = \begin{pmatrix} -3+2\sqrt{3} & 1 \end{pmatrix}\sp{T}}$\enskip tương ứng với mỗi trị riêng.\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:
+\begin{center}
+    $\textcolor{blue}{u = C\sb{1} e\sp{(-1+2\sqrt{3})t}\begin{pmatrix} -3-2\sqrt{3} \\ 1 \end{pmatrix} + C\sb{2} e\sp{(-1-2\sqrt{3})t}\begin{pmatrix} -3+2\sqrt{3} \\ 1 \end{pmatrix}}$.
+\end{center}
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 3 & -3 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm:
+\begin{center}
+    $\textcolor{blue}{u = (-\dfrac{3}{2}+\dfrac{\sqrt{3}}{2}) e\sp{(-1+2\sqrt{3})t}\begin{pmatrix} -3-2\sqrt{3} \\ 1 \end{pmatrix} + (-\dfrac{3}{2}-\dfrac{\sqrt{3}}{2}) e\sp{(-1-2\sqrt{3})t}\begin{pmatrix} -3+2\sqrt{3} \\ 1 \end{pmatrix}}$.
+\end{center}
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=(\dfrac{3}{2}+\dfrac{3\sqrt{3}}{2}) e\sp{(-1+2\sqrt{3})t}+ (\dfrac{3}{2}-\dfrac{3\sqrt{3}}{2}) e\sp{(-1-2\sqrt{3})t}\\
+            J(t)=(-\dfrac{3}{2}+\dfrac{\sqrt{3}}{2}) e\sp{(-1+2\sqrt{3})t}+ (-\dfrac{3}{2}-\dfrac{\sqrt{3}}{2}) e\sp{(-1-2\sqrt{3})t}
+        \end{cases}
+        }
+\notag
+	\end{align}
+
+\begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.7.2.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.7.2.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between a narcissistic nerd and a hermit - 2.7.2}} 
+\end{figure}
+    
+\subsection{Cautious Lover and Cautious Lover}
+\subsubsection{Ví dụ 1}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = -2R + 5J \textcolor{black}{,}\\
+            \dot J = -R + 4J \textcolor{black}{,}\\
+            R(0) = 2\textcolor{black}{,} \enskip J(0) = -2 \textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+       \notag
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} -2 & 5\\ -1 & 4 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 2 & -2 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{1}}$$\textcolor{blue}{=3}$ và $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{2}}$$\textcolor{blue}{=-1}$.\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} 1 & 1 \end{pmatrix}\sp{T}}$\enskip và \enskip $\textcolor{blue}{V\sb{2} = \begin{pmatrix} 5 & 1 \end{pmatrix}\sp{T}}$\enskip tương ứng với mỗi trị riêng.\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:
+$\textcolor{blue}{u = C\sb{1} e\sp{3t}\begin{pmatrix} 1 \\ 1 \end{pmatrix} + C\sb{2} e\sp{-t}\begin{pmatrix} 5 \\ 1 \end{pmatrix}}$.\\\\
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 2 & -2 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm: $\textcolor{blue}{u = -3 e\sp{3t}\begin{pmatrix} 1 \\ 1 \end{pmatrix} + e\sp{-t}\begin{pmatrix} 5 \\ 1 \end{pmatrix}}$.\\\\
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=-3e\sp{3t} +5e\sp{-t}\\
+            J(t)=-3e\sp{3t} +e\sp{-t}
+        \end{cases}
+        }
+\notag
+	\end{align}
+
+\begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.8.1.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.8.1.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between a cautious lover and a cautious lover - 2.8.1}} 
+\end{figure}
+    
+\subsubsection{Ví dụ 2}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = -R + 2J \textcolor{black}{,}\\
+            \dot J = -2R + 3J \textcolor{black}{,}\\
+            R(0) = -6\textcolor{black}{,} \enskip J(0) = 0 \textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+       \notag
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} -1 & 2\\ -2 & 3 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} -6 & 0 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng kép $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{=1}$.\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} 1 & 1 \end{pmatrix}\sp{T}}$\enskip và \enskip $\textcolor{blue}{V\sb{2} = \begin{pmatrix} 1 & \dfrac{3}{2} \end{pmatrix}\sp{T}}$\enskip tương ứng trị riêng kép này.\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:
+$\textcolor{blue}{u = C\sb{1} e\sp{t}\begin{pmatrix} 1 \\ 1 \end{pmatrix} + C\sb{2} e\sp{t}(t\begin{pmatrix} 1 \\ 1 \end{pmatrix} + \begin{pmatrix} 1 \\ \dfrac{3}{2} \end{pmatrix})}$.\\\\
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} -6 & 0 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm: $\textcolor{blue}{u = -18 e\sp{t}\begin{pmatrix} 1 \\ 1 \end{pmatrix} + 12 e\sp{t}(t\begin{pmatrix} 1 \\ 1 \end{pmatrix} + \begin{pmatrix} 1 \\ \dfrac{3}{2} \end{pmatrix})}$.\\\\
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=(-6+12t)e\sp{t}\\
+            J(t)=12te\sp{t}
+        \end{cases}
+        }
+\notag
+	\end{align}
+
+\begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.8.2.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.8.2.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between a cautious lover and a cautious lover - 2.8.2}} 
+\end{figure}
+    
+\subsection{Cautious Lover and Hermit}
+\subsubsection{Ví dụ 1}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = -R + J \textcolor{black}{,}\\
+            \dot J = -R - J \textcolor{black}{,}\\
+            R(0) = 3\textcolor{black}{,} \enskip J(0) = 1 \textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} -1 & 1\\ -1 & -1 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 3 & 1 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{1}}$$\textcolor{blue}{=-1+i}$ .\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} 1 & i \end{pmatrix}\sp{T}}$\enskip\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:\\\\
+$\textcolor{blue}{u = C\sb{1} \begin{pmatrix} \dfrac{\sin{t}}{e^{t}} \\  \dfrac{\cos{t}}{e^{t}}  \end{pmatrix} + C\sb{2} \begin{pmatrix} \dfrac{\cos{t}}{e^{t}}  \\ -\dfrac{\sin{t}}{e^{t}}  \end{pmatrix}}$.\\\\
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 3 & 1 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm:\\\\ $\textcolor{blue}{u =  \dfrac{1}{e\sp{t}}\begin{pmatrix}\sin{t}+3\cos{t} \\  \cos{t}-3\sin{t} \end{pmatrix}}$ .\\\\
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=\dfrac{\sin{t}+3\cos{t}}{e^{t}}\\
+            J(t)=\dfrac{\cos{t}-3\sin{t}}{e^{t}}
+        \end{cases}
+        }
+\notag
+	\end{align}
+
+ \begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.9.1.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.9.1.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between a cautious lover and a hermit - 2.9.1}} 
+\end{figure}
+
+\subsubsection{Ví dụ 2}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = -3R + 2J \textcolor{black}{,}\\
+            \dot J = -R - J \textcolor{black}{,}\\
+            R(0) = -1\textcolor{black}{,} \enskip J(0) = 1 \textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+       \notag
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} -3 & 2\\ -1 & -1 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} -1& 1 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{1}}$$\textcolor{blue}{=-2+i}$ .\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} 2 & 1+i \end{pmatrix}\sp{T}}$\enskip\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:\\\\
+$\textcolor{blue}{u = C\sb{1} \begin{pmatrix} \dfrac{2\sin{t}}{e^{2t}} \\  \dfrac{\sin{t}+\cos{t}}{e^{2t}}  \end{pmatrix} + C\sb{2} \begin{pmatrix} \dfrac{2\cos{t}}{e^{2t}}  \\ \dfrac{\cos{t}-\sin{t}}{e^{2t}}  \end{pmatrix}}$.\\\\
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} -1 & 1 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm:\\\\ $\textcolor{blue}{u =  \dfrac{1}{e\sp{2t}}\begin{pmatrix}3\sin{t}-\cos{t} \\  2\sin{t}+\cos{t} \end{pmatrix}}$ .\\\\
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=\dfrac{3\sin{t}-\cos{t}}{e^{2t}}\\
+            J(t)=\dfrac{2\sin{t}+\cos{t}}{e^{2t}}
+        \end{cases}
+        }
+\notag
+	\end{align}
+
+ \begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.9.2.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.9.2.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between a cautious lover and a hermit - 2.9.2}} 
+\end{figure}
+    
+\subsection{Hermit and Hermit}
+\subsubsection{Ví dụ 1}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = -R - J \textcolor{black}{,}\\
+            \dot J = -R - J \textcolor{black}{,}\\
+            R(0) = 0\textcolor{black}{,} \enskip J(0) = -1 \textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} -1 & -1\\ -1 & -1 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 0 & -1 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{1}}$$\textcolor{blue}{=0}$ và $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{2}}$$\textcolor{blue}{=-2}$.\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} 1 & -1 \end{pmatrix}\sp{T}}$\enskip và \enskip $\textcolor{blue}{V\sb{2} = \begin{pmatrix} 1 & 1 \end{pmatrix}\sp{T}}$\enskip tương ứng với mỗi trị riêng.\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:
+$\textcolor{blue}{u = C\sb{1} e\sp{0t}\begin{pmatrix} 1 \\ -1 \end{pmatrix} + C\sb{2} e\sp{-2t}\begin{pmatrix} 1 \\ 1 \end{pmatrix}}$.\\\\
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 0 & -1 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm: $\textcolor{blue}{u = \dfrac{1}{2} e\sp{0t}\begin{pmatrix} 1 \\ -1 \end{pmatrix} - \dfrac{1}{2} e\sp{-2t}\begin{pmatrix} 1 \\ 1 \end{pmatrix}}$.\\\\
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=\dfrac{1}{2} -\dfrac{1}{2}e\sp{-2t}\\
+            J(t)=- \dfrac{1}{2} -\dfrac{1}{2}e\sp{-2t}
+        \end{cases}
+        }
+\notag
+	\end{align}
+
+\begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.10.1.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.10.1.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between a hermit and a hermit - 2.10.1}} 
+\end{figure}
+    
+\subsubsection{Ví dụ 2}
+Tìm nghiệm của hệ phương trình:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = -R - 2J \textcolor{black}{,}\\
+            \dot J = -5R - 4J \textcolor{black}{,}\\
+            R(0) = 3\textcolor{black}{,} \enskip J(0) = 2 \textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+{\bfseries Bước 1 :} Chuyển hệ về dạng:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u = Au \textcolor{black}{,}\\
+            u(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+        \notag
+	\end{align}
+Trong đó,  $\textcolor{blue}{A = \begin{pmatrix} -1 & -2\\ -5 & -4 \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip và\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 3 & 2 \end{pmatrix}\sp{T}}$.\\\\
+{\bfseries Bước 2 :} Ta tìm được trị riêng $\textcolor{blue}{\lambda}$ của ma trận $\textcolor{blue}{A}$ là: $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{1}}$$\textcolor{blue}{=1}$ và $\textcolor{blue}{\lambda}$$\textcolor{blue}{\sb{2}}$$\textcolor{blue}{=-6}$.\\\\
+{\bfseries Bước 3 :} Ta tìm được vector riêng \enskip $\textcolor{blue}{V\sb{1} = \begin{pmatrix} 1 & -1 \end{pmatrix}\sp{T}}$\enskip và \enskip $\textcolor{blue}{V\sb{2} = \begin{pmatrix} 2 & 5 \end{pmatrix}\sp{T}}$\enskip tương ứng với mỗi trị riêng.\\\\
+{\bfseries Bước 4 :} Áp dụng công thức nghiệm tổng quát, ta tìm được:
+$\textcolor{blue}{u = C\sb{1} e\sp{t}\begin{pmatrix} 1 \\ -1 \end{pmatrix} + C\sb{2} e\sp{-6t}\begin{pmatrix} 2 \\ 5 \end{pmatrix}}$.\\\\
+{\bfseries Bước 5 :} Với $\textcolor{blue}{u\sb{0} = \begin{pmatrix} 3 & 2 \end{pmatrix}\sp{T}}$, ta tìm được nghiệm: $\textcolor{blue}{u = \dfrac{11}{7} e\sp{t}\begin{pmatrix} 1 \\ -1 \end{pmatrix} + \dfrac{5}{7} e\sp{-6t}\begin{pmatrix} 2 \\ 5 \end{pmatrix}}$.\\\\
+Vậy nghiệm của hệ là:
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            R(t)=\dfrac{11}{7}e\sp{t} +\dfrac{10}{7}e\sp{-6t}\\
+            J(t)=-\dfrac{11}{7}e\sp{t} +\dfrac{25}{7}e\sp{-6t}
+        \end{cases}
+        }
+\notag
+	\end{align}
+
+\begin{figure}[!htp] \label{}
+    \centering
+    \begin{tabular}{cc} 
+        \subfloat[The solutions]{
+        \includegraphics[width=7cm]{images/Solution2.10.2.png}} & 
+        
+        \subfloat[The phase portraits]{
+        \includegraphics[width=6cm]{images/PhasePortrait2.10.2.png}}  
+    \end{tabular} 
+    \caption{\textit{The love between a hermit and a hermit - 2.10.2}} 
+\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+	\section{Hệ Phương trình vi phân tuyến tính không thuần nhất}
+ \subsection{Lập mô hình toán học}
+	Giả sử rằng tình yêu giữa Romeo và Juliet bị ảnh hưởng bởi các điều kiện ngoại cảnh như gia đình họ và các định kiến xã hội.Khi đó tình yêu giữa hai người có thể được mô tả bởi hệ phương trình vi phân : 
+ \begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = aR + bJ + f(t) \textcolor{black}{,}\\
+            \dot J = cR + dJ + g(t) \textcolor{black}{,}\\
+            R(0) = R_{0}\textcolor{black}{,} \enskip J(0) = J_{0} \textcolor{black}{.}
+        \end{cases}
+        }
+        \label{label6}
+	\end{align}
+với \textcolor{blue}{f} và \textcolor{blue}{g} là hai hàm thực phụ thuộc vào  \textcolor{blue}{t} .
+\subsection{Tìm nghiệm của mô hình bằng phương pháp biến thiên hằng số}
+Đầu tiên ta chuyển hệ phương trình \eqref{label6} về dạng :
+\begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot u_1 = Au_1 + h(t)\textcolor{black}{,}\\
+            u_1(0) = u\sb{0}\textcolor{black}{.}
+        \end{cases}
+        }
+        \label{label7}
+\end{align}
+Trong đó,$\textcolor{blue}{A = \begin{pmatrix} a & b\\ c & d \end{pmatrix}}$,\enskip $\textcolor{blue}{u = \begin{pmatrix} R & J \end{pmatrix}\sp{T}}$\enskip ,\enskip $\textcolor{blue}{u\sb{0} = \begin{pmatrix} R\sb{0} & J\sb{0} \end{pmatrix}\sp{T}}$ và $\textcolor{blue}{h =\begin{pmatrix} f(t) \\ g(t) \end{pmatrix}}$\\
+Từ hệ phương trình vi phân tuyến tính thuần nhất,ta thấy nghiệm của hệ có dạng : 
+\begin{center}
+$\textcolor{blue}{u=X(t)C}$
+\end{center}
+Với $\textcolor{blue}{X(t)}$ là ma trận độc lập tuyến tính và  $\textcolor{blue}{C}$ là ma trận hằng số. Nên ta sẽ thử nghiệm của hệ không thuần nhất có dạng : 
+\begin{center}
+$\textcolor{blue}{u_1=X(t)C(t)}$
+\end{center} 
+Thay vào phương trình $\textcolor{blue}{\dot u_1 = Au_1 + h(t) }$, ta được:
+
+\begin{align} 
+\notag 
+&&\textcolor{blue}{(X(t)C(t))'} &\textcolor{blue}{= A X(t) C(t) + h(t)}\\
+\notag
+&\iff &\textcolor{blue}{X'(t)C(t)+X(t)C'(t)}& \textcolor{blue}{= A X(t) C(t) + h(t)}\\
+\notag
+&\iff &\textcolor{blue}{X(t)C'(t)}&\textcolor{blue}{=h(t)}\\
+\notag&\iff &\textcolor{blue}{C'(t)}&\textcolor{blue}{=[X(t)]^{-1} h(t)}\\
+\notag&\iff &\textcolor{blue}{C(t)}&\textcolor{blue}{= \int [X(t)]^{-1} h(t) dt }
+\end{align}
+
+Vì đây là bài toán \textcolor{violet}{IVP} nên ta sẽ sử dụng tích phân xác định để tìm nghiệm của bài toán :
+\begin{align}
+\notag
+&\textcolor{blue}{C(t)-C(0)= \int_{0}^{t} C'(s)ds = \int_{0}^{t} [X(s)]^{-1} h(s)ds }\\
+\notag
+\iff&\textcolor{blue}{C(t) = C(0) + \int_{0}^{t} [X(s)]^{-1} h(s)ds }
+\end{align}
+Thay vào $\textcolor{blue}{u_1}$ ta được :
+\begin{align}
+\notag
+\textcolor{blue}{u_1} &\textcolor{blue}{= X(t)C(t)}\\
+\notag
+&\textcolor{blue}{= X(t) [C(0) + \int_{0}^{t} [X(s)]^{-1} h(s)ds]}\\
+\notag
+&\textcolor{blue}{= X(t)[X(0)]^{-1}u_1(0) + X(t)\int_{0}^{t} [X(s)]^{-1} h(s)ds}
+\end{align} 
+Vậy nghiệm tổng quát của hệ phương trình vi phân tuyến tính không thuần nhất là:
+\begin{align}
+\textcolor{blue}{u_1(t)= X(t)[X(0)]^{-1}u_1(0) + X(t)\int_{0}^{t} [X(s)]^{-1} h(s)ds}
+\end{align} 
+	\subsection{Các ví dụ}
+\textbf{Ví Dụ 1}
+Tìm nghiệm của hệ phương trình :
+ \begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = -4R + 2J + 3e^{3t} \textcolor{black}{,}\\
+            \dot J = -1R + -1J + 4e^{3t}\textcolor{black}{,}\\
+            R(0) = -4\textcolor{black}{,} \enskip J(0) = 4 \textcolor{black}{.}
+        \end{cases}
+        }
+\notag
+	\end{align}\\
+ Đưa pt về dạng \eqref{label7} ta được: 
+ \notag
+ $\textcolor{blue}{A = \begin{pmatrix} -4 & 2\\ -1 & -1 \end{pmatrix}}$ , \enskip $\textcolor{blue}{u_1(0) = \begin{pmatrix} -4 & 4 \end{pmatrix}\sp{T}}$\enskip và   $\textcolor{blue}{h =\begin{pmatrix} 3e^{3t} \\ 4e^{3t} \end{pmatrix}}$\\
+Đầu tiên ta giải tìm nghiệm thuần nhất, Ma trận A có hai trị riêng $\textcolor{blue}{\lambda_1=-2}$ và $\textcolor{blue}{\lambda_2=-3 }$ từ đó  ta giải được nghiệm thuần nhất của hệ:\\
+\begin{align}
+\notag
+\textcolor{blue}{u= \begin{bmatrix} e^{-2t} & 2e^{-3t}\\ e^{-2t} & e^{-3t} \end{bmatrix} \begin{bmatrix} C_1 \\ C_2 \end{bmatrix}=X(t)C}
+\end{align}
+Ta có :  
+\begin{align*}
+\notag
+\textcolor{blue}{X(t)= \begin{bmatrix} e^{-2t} & 2e^{-3t}\\ e^{-2t} & e^{-3t} \end{bmatrix}} \implies \textcolor{blue}{[X(t)]^{-1}= \dfrac{-1}{e^{-5t}} \begin{bmatrix} e^{-3t} & -2e^{-3t}\\ -e^{-2t} & e^{-2t} \end{bmatrix}= \begin{bmatrix} 
+ -e^{2t} & 2e^{2t}\\ e^{3t} & -e^{3t} \end{bmatrix} }\\
+\implies  \textcolor{blue}
+{\int_{0}^{t}[X(s)]^{-1}h(s) ds }\textcolor{blue}{=\int_{0}^{t}\begin{bmatrix} -e^{2s} & 2e^{2s}\\ e^{3s} & -e^{3s} \end{bmatrix} \begin{bmatrix} 3e^{3s} \\ 4e^{3s} \end{bmatrix}}
+ \textcolor{blue}{= \int_{0}^{t}\begin{bmatrix} 5e^{5s} \\ -e^{6s} \end{bmatrix}= \begin{bmatrix} e^{5t}-1\\ \dfrac{-e^{6t}}{6}+\dfrac{1}{6}\end{bmatrix}} 
+ \\ \implies \textcolor{blue}
+{X(t)\int_{0}^{t}[X(s)]^{-1}h(s) ds =\begin{bmatrix} e^{-2t} & 2e^{-3t}\\ e^{-2t} & e^{-3t} \end{bmatrix}\begin{bmatrix} e^{5t}-1\\ \dfrac{-e^{6t}}{6}+\dfrac{1}{6}\end{bmatrix}=
+\begin{bmatrix} \dfrac{2e^{3t}}{3}-e^{-2t}+\dfrac{e^{-3t}}{3}    \\ \dfrac{5e^{3t}}{6}-e^{-2t}+\dfrac{e^{-3t}}{6}   \end{bmatrix}}
+ \end{align*}
+ Và: 
+ \begin{align}
+ \textcolor{blue}{X(t)[X(0)]^{-1}u_1(0)=\begin{bmatrix} e^{-2t} & 2e^{-3t}\\ e^{-2t} & e^{-3t} \end{bmatrix}\begin{bmatrix} 
+ -e^{2.0} & 2e^{2. 0}\\ e^{3.0} & -e^{3. 0} \end{bmatrix}\begin{bmatrix} -4 \\ 4 \end{bmatrix} = \begin{bmatrix} 12e^{-2t} + -16e^{-3t}\\ 12e^{-2t} - 8e^{-3t} \end{bmatrix}}
+ \end{align}
+ Vậy nghiệm của hệ là :
+ \begin{align}
+  & \textcolor{blue}{  u_1=\begin{bmatrix} 12e^{-2t}  -16e^{-3t}\\ 12e^{-2t} - 8e^{-3t} \end{bmatrix}+\begin{bmatrix} \dfrac{2e^{3t}}{3}-e^{-2t}+\dfrac{e^{-3t}}{3}    \\ \dfrac{5e^{3t}}{6}-e^{-2t}+\dfrac{e^{-3t}}{6}   \end{bmatrix}=\begin{bmatrix} 11e^{-2t} -\dfrac{47}{3}e^{-3t}+\dfrac{2}{3}e^{3t}\\ \\11e^{-2t} - \dfrac{47}{6}e^{-3t}+\dfrac{5}{6}e^{3t} \end{bmatrix}}\\
+ &\implies\textcolor{blue}{  \begin{cases}
+     \textcolor{blue}
+{R(t)=11e^{-2t} -\dfrac{47}{3}e^{-3t}+\dfrac{2}{3}e^{3t}}\\\\\textcolor{blue}
+{J(t)=11e^{-2t} - \dfrac{47}{6}e^{-3t}+\dfrac{5}{6}e^{3t} }
+\end{cases}}
+ \end{align}
+\textbf{Ví dụ 2} Tìm nghiệm của hệ phương trình :
+ \begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = -6R + -8J + t+1 \textcolor{black}{,}\\
+            \dot J = 2R + 4J + 3\textcolor{black}{,}\\
+            R(0) = 2\textcolor{black}{,} \enskip J(0) = 2 \textcolor{black}{.}
+        \end{cases}
+        }
+        \label{label9}
+	\end{align}
+ Đưa pt về dạng \eqref{label7} ta được: 
+ \notag
+ $\textcolor{blue}{A = \begin{pmatrix} -6 & -8\\ 2 & 4 \end{pmatrix}}$ , \enskip $\textcolor{blue}{u_1(0) = \begin{pmatrix} 2 & 2 \end{pmatrix}\sp{T}}$\enskip và   $\textcolor{blue}{h =\begin{pmatrix} t+1 \\ 3 \end{pmatrix}}$\\
+ Đầu tiên ta giải tìm nghiệm thuần nhất, Ma trận A có hai trị riêng $\textcolor{blue}{\lambda_1=-4}$ và $\textcolor{blue}{\lambda_2=2 }$ từ đó  ta giải được nghiệm thuần nhất của hệ:\\
+\begin{align}
+\notag
+\textcolor{blue}{u= \begin{bmatrix} 4e^{-4t} & e^{2t}\\ -e^{-4t} & -e^{2t} \end{bmatrix} \begin{bmatrix} C_1 \\ C_2 \end{bmatrix}=X(t)C}
+\end{align}
+Ta có :  
+\begin{align*}
+\notag
+&\textcolor{blue}{X(t)=  \begin{bmatrix} 4e^{-4t} & e^{2t}\\ -e^{-4t} & -e^{2t} \end{bmatrix}} \implies \textcolor{blue}{[X(t)]^{-1}= \dfrac{-1}{3e^{-2t}} \begin{bmatrix} -e^{2t} & -e^{2t}\\ e^{-4t} & 4e^{-4t} \end{bmatrix}= \begin{bmatrix} 
+ \dfrac{1}{3}e^{4t} & \dfrac{1}{3}e^{4t} \\\\ -\dfrac{1}{3}e^{-2t} & -\dfrac{4}{3}e^{-2t} \end{bmatrix} }\\
+&\implies  \textcolor{blue}
+{\int_{0}^{t}[X(s)]^{-1}h(s) ds }\textcolor{blue}{=\int_{0}^{t}\begin{bmatrix} 
+ \dfrac{1}{3}e^{4s} & \dfrac{1}{3}e^{4s} \\\\ -\dfrac{1}{3}e^{-2s} & -\dfrac{4}{3}e^{-2s} \end{bmatrix} \begin{bmatrix} s+1 \\ 3 \end{bmatrix}}
+ \textcolor{blue}{= \int_{0}^{t}\begin{bmatrix}  \dfrac{s+4}{3}e^{4s} \\\\  \dfrac{-s-13}{3}e^{-2s} \end{bmatrix}}\\
+ &\textcolor{blue}{= \begin{bmatrix} \dfrac{(4t+15)e^{4t}}{48} -\dfrac{5}{16}\\\\ \dfrac{(2t+27)e^{-2t}}{12} -\dfrac{27}{12}\end{bmatrix}} 
+ \\ &\implies \textcolor{blue}
+{X(t)\int_{0}^{t}[X(s)]^{-1}h(s) ds =\begin{bmatrix} 4e^{-4t} & e^{2t}\\ -e^{-4t} & -e^{2t} \end{bmatrix}\begin{bmatrix} \dfrac{(4t+15)e^{4t}}{48} -\dfrac{5}{16}\\\\ \dfrac{(2t+27)e^{-2t}}{12} -\dfrac{27}{12}\end{bmatrix}}\\
+&=\textcolor{blue}{
+\begin{bmatrix} -\dfrac{5}{4}e^{-4t}-\dfrac{27}{12}e^{2t}+ \dfrac{t}{2} +\dfrac{7}{2}\\ \dfrac{5}{16}e^{-4t}+\dfrac{27}{12}e^{2t}+\dfrac{-t}{4}+\dfrac{-41}{16}  \end{bmatrix}}
+ \end{align*}
+ Và: 
+ \begin{align}
+ \textcolor{blue}{X(t)[X(0)]^{-1}u_1(0)=\begin{bmatrix} 4e^{-4t} & e^{2t}\\ -e^{-4t} & -e^{2t} \end{bmatrix}\begin{bmatrix} 
+ \dfrac{1}{3}e^{4.0} & \dfrac{1}{3}e^{4.0} \\\\ -\dfrac{1}{3}e^{-2.0} & -\dfrac{4}{3}e^{-2.0} \end{bmatrix}\begin{bmatrix} 2 \\ 2 \end{bmatrix} = \begin{bmatrix} \dfrac{16}{3}e^{-4t}  - \dfrac{10}{3}e^{2t}\\\\ -\dfrac{4}{3}e^{-4t}  +\dfrac{10}{3}e^{2t} \end{bmatrix}}
+ \end{align}
+ Vậy nghiệm của hệ là :
+ \begin{align}
+  & \textcolor{blue}{  u_1=\begin{bmatrix} \dfrac{16}{3}e^{-4t}  - \dfrac{10}{3}e^{2t}\\\\ -\dfrac{4}{3}e^{-4t}  +\dfrac{10}{3}e^{2t} \end{bmatrix}+\begin{bmatrix} -\dfrac{5}{4}e^{-4t}-\dfrac{27}{12}e^{2t}+ \dfrac{t}{2} +\dfrac{7}{2}\\\\ \dfrac{5}{16}e^{-4t}+\dfrac{27}{12}e^{2t}-\dfrac{t}{4}+\dfrac{-41}{16}  \end{bmatrix}=\begin{bmatrix} \dfrac{49}{12}e^{-4t} -\dfrac{67}{12}e^{2t}+ \dfrac{t}{2} +\dfrac{7}{2} \\\\-\dfrac{49}{48}e^{-4t}  +\dfrac{67}{12}e^{2t}- \dfrac{t}{4}-\dfrac{41}{16} \end{bmatrix}}\\
+ &\implies\textcolor{blue}{  \begin{cases}
+     \textcolor{blue}
+{R(t)= \dfrac{49}{12}e^{-4t} -\dfrac{67}{12}e^{2t}+ \dfrac{t}{2} +\dfrac{7}{2}}\\\\\textcolor{blue}
+{J(t)=-\dfrac{49}{48}e^{-4t}  +\dfrac{67}{12}e^{2t}- \dfrac{t}{4}-\dfrac{41}{16} }
+\end{cases}}
+ \end{align}
+ \textbf{Ví Dụ 3}
+Tìm nghiệm của hệ phương trình :
+ \begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = 4R - 1J + e^{3t} \textcolor{black}{,}\\
+            \dot J = 2R + 1J +  t \textcolor{black}{,}\\
+            R(0) = 3\textcolor{black}{,} \enskip J(0) = 1 \textcolor{black}{.}
+        \end{cases}
+        }
+        \label{label9}
+	\end{align}\\
+ Đưa pt về dạng \eqref{label7} ta được: 
+ \notag
+ $\textcolor{blue}{A = \begin{pmatrix} 4 & -1\\ 2 & 1 \end{pmatrix}}$ , \enskip $\textcolor{blue}{u_1(0) = \begin{pmatrix} 3 & 1 \end{pmatrix}\sp{T}}$\enskip và   $\textcolor{blue}{h =\begin{pmatrix} e^{3t} \\ t \end{pmatrix}}$\\
+Đầu tiên ta giải tìm nghiệm thuần nhất, Ma trận A có hai trị riêng $\textcolor{blue}{\lambda_1=2}$ và $\textcolor{blue}{\lambda_2=3 }$ từ đó  ta giải được nghiệm thuần nhất của hệ:\\
+\begin{align}
+\notag
+\textcolor{blue}{u= \begin{bmatrix} e^{2t} & e^{3t}\\ 2e^{2t} & e^{3t} \end{bmatrix} \begin{bmatrix} C_1 \\ C_2 \end{bmatrix}=X(t)C}
+\end{align}
+Ta có :  
+\begin{align}
+&\textcolor{blue}{X(t)= \begin{bmatrix} e^{2t} & e^{3t}\\ 2e^{2t} & e^{3t} \end{bmatrix}} \implies \textcolor{blue}{[X(t)]^{-1}= -\dfrac{1}{e^{5t}} \begin{bmatrix} e^{3t} & -e^{3t}\\ -2e^{2t} & e^{2t} \end{bmatrix}= \begin{bmatrix} 
+ -e^{-2t} & e^{-2t}\\ 2e^{-3t} & -e^{-3t} \end{bmatrix} }\\
+&\implies  \textcolor{blue}
+{\int_{0}^{t}[X(s)]^{-1}h(s) ds }\textcolor{blue}{=\int_{0}^{t}\begin{bmatrix} 
+ -e^{-2s} & e^{-2s}\\ 2e^{-3s} & -e^{-3s} \end{bmatrix} \begin{bmatrix} e^{3s} \\ s\end{bmatrix}}
+ \textcolor{blue}{= \int_{0}^{t}\begin{bmatrix} -e^{s}+se^{-2s} \\ 2-se^{-3s} \end{bmatrix}}\\
+ &\textcolor{blue}{= \begin{bmatrix} \dfrac{-2t-1}{4}e^{-2t}-e^{t}+\dfrac{5}{4}\\\\ \dfrac{3t+1}{9}e^{-3t}+2t-\dfrac{1}{9}\end{bmatrix}} 
+ \\ &\implies \textcolor{blue}
+{X(t)\int_{0}^{t}[X(s)]^{-1}h(s) ds =\begin{bmatrix} e^{2t} & e^{3t}\\ 2e^{2t} & e^{3t} \end{bmatrix}\begin{bmatrix} \dfrac{-2t-1}{4}e^{-2t}-e^{t}+\dfrac{5}{4}\\\\ \dfrac{3t+1}{9}e^{-3t}+2t-\dfrac{1}{9}\end{bmatrix}}\\ 
+&=\textcolor{blue}{
+\begin{bmatrix} (2t-\dfrac{10}{9})e^{3t}+\dfrac{5}{4}e^{2t} -\dfrac{t}{6}-\dfrac{5}{36}  \\\\ (2t-\dfrac{19}{9})e^{3t}+\dfrac{5}{2}e^{2t}- \dfrac{2}{3}t-\dfrac{7}{18}\end{bmatrix}}
+ \end{align}
+ Và: 
+ \begin{align}
+ \textcolor{blue}{X(t)[X(0)]^{-1}u_1(0)=\begin{bmatrix} e^{2t} & e^{3t}\\ 2e^{2t} & e^{3t} \end{bmatrix}\begin{bmatrix} 
+ -e^{-2.0} & e^{-2.0}\\ 2e^{-3.0} & -e^{-3.0} \end{bmatrix} \begin{bmatrix} 3 \\ 1 \end{bmatrix} = \begin{bmatrix} -2e^{2t} + 5e^{3t}\\ -4e^{2t} +5e^{3t} \end{bmatrix}}
+ \end{align}
+ Vậy nghiệm của hệ là :
+ \begin{align}
+  & \textcolor{blue}{  u_1=\begin{bmatrix} -2e^{2t} + 5e^{3t}\\ -4e^{2t} +5e^{3t} \end{bmatrix}+\begin{bmatrix} (2t-\dfrac{10}{9})e^{3t}+\dfrac{5}{4}e^{2t} -\dfrac{t}{6}-\dfrac{5}{36}  \\\\ (2t-\dfrac{19}{9})e^{3t}+\dfrac{5}{2}e^{2t}- \dfrac{2}{3}t-\dfrac{7}{18}\end{bmatrix}=\begin{bmatrix} (2t+\dfrac{35}{9})e^{3t}-\dfrac{3}{4}e^{2t} -\dfrac{t}{6}-\dfrac{5}{36}  \\\\ (2t+\dfrac{26}{9})e^{3t}-\dfrac{3}{2}e^{2t}- \dfrac{2}{3}t-\dfrac{7}{18}\end{bmatrix}}\\
+ &\implies\textcolor{blue}{  \begin{cases}
+     \textcolor{blue}
+{R(t)=(2t+\dfrac{35}{9})e^{3t}-\dfrac{3}{4}e^{2t} -\dfrac{t}{6}-\dfrac{5}{36} }\\\\\textcolor{blue}
+{J(t)=(2t+\dfrac{26}{9})e^{3t}-\dfrac{3}{2}e^{2t}- \dfrac{2}{3}t-\dfrac{7}{18}}
+\end{cases}}
+ \end{align}
+ \textbf{Ví Dụ 4}
+Tìm nghiệm của hệ phương trình :
+ \begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = 2R +3J + 3t \textcolor{black}{,}\\
+            \dot J = 4R - 2J +  t^{2} \textcolor{black}{,}\\
+            R(0) = 3\textcolor{black}{,} \enskip J(0) = 1 \textcolor{black}{.}
+        \end{cases}
+        }
+        \label{label9}
+	\end{align}\\
+ Đưa pt về dạng \eqref{label7} ta được: 
+ \notag
+ $\textcolor{blue}{A = \begin{pmatrix} 2 & 3\\ 4 & -2 \end{pmatrix}}$ , \enskip $\textcolor{blue}{u_1(0) = \begin{pmatrix} -4 & 3 \end{pmatrix}\sp{T}}$\enskip và   $\textcolor{blue}{h =\begin{pmatrix} 3t \\ t^{2}\end{pmatrix}}$\\
+Đầu tiên ta giải tìm nghiệm thuần nhất, Ma trận A có hai trị riêng $\textcolor{blue}{\lambda_1=-4}$ và $\textcolor{blue}{\lambda_2=4 }$ từ đó  ta giải được nghiệm thuần nhất của hệ:\\
+\begin{align}
+\notag
+\textcolor{blue}{u= \begin{bmatrix} 3e^{4t} & e^{-4t}\\ 2e^{4t} & -2e^{-4t} \end{bmatrix} \begin{bmatrix} C_1 \\ C_2 \end{bmatrix}=X(t)C}
+\end{align}
+Ta có :  
+\begin{align*}
+\notag
+&\textcolor{blue}{X(t)= \begin{bmatrix} 3e^{4t} & e^{-4t}\\ 2e^{4t} & -2e^{-4t} \end{bmatrix}} \implies \textcolor{blue}{[X(t)]^{-1}= -\dfrac{1}{8} \begin{bmatrix} -2e^{-4t} & -e^{-4t}\\ -2e^{4t} & 3e^{4t} \end{bmatrix}= \begin{bmatrix} 
+ \dfrac{1}{4}e^{-4t} & \dfrac{1}{8}e^{-4t}\\\\ \dfrac{1}{4}e^{4t} & -\dfrac{3}{8}e^{4t} \end{bmatrix} }\\
+&\implies  \textcolor{blue}
+{\int_{0}^{t}[X(s)]^{-1}h(s) ds }\textcolor{blue}{=\int_{0}^{t}\begin{bmatrix} 
+ \dfrac{1}{4}e^{-4s} & \dfrac{1}{8}e^{-4s}\\\\ \dfrac{1}{4}e^{4s} & -\dfrac{3}{8}e^{4s} \end{bmatrix} \begin{bmatrix} 3s \\ s^{2}\end{bmatrix}}
+ \textcolor{blue}{= \int_{0}^{t}\begin{bmatrix} (\dfrac{3s}{4} +\dfrac{s^{2}}{8})e^{-4s}\\\\ (\dfrac{3s}{4} -\dfrac{3s^{2}}{8})e^{4s} \end{bmatrix}}\\
+ &\textcolor{blue}{= \begin{bmatrix} \dfrac{(-8t^{2}-52t-13)e^{-4t}}{256}+\dfrac{13}{256}\\\\ \dfrac{(-24t^{2}+60t-15)e^{4t}}{256}+\dfrac{15}{256}\end{bmatrix}} 
+ \\ &\implies \textcolor{blue}
+{X(t)\int_{0}^{t}[X(s)]^{-1}h(s) ds =\begin{bmatrix} 3e^{4t} & e^{-4t}\\ 2e^{4t} & -2e^{-4t} \end{bmatrix}\begin{bmatrix} \dfrac{(-8t^{2}-52t-13)e^{-4t}}{256}+\dfrac{13}{256}\\\\ \dfrac{(-24t^{2}+60t-15)e^{4t}}{256}+\dfrac{15}{256}\end{bmatrix}}\\ 
+&=\textcolor{blue}{
+\begin{bmatrix} \dfrac{15}{256}e^{-4t}+ \dfrac{39}{256}e^{4t}+\dfrac{-24t^{2}-48t-27}{128}  \\\\ -\dfrac{15}{128}e^{-4t}+\dfrac{13}{128}e^{4t}+\dfrac{16t^{2}-112t+2}{128}\end{bmatrix}}
+ \end{align*}
+ Và: 
+ \begin{align}
+ \textcolor{blue}{X(t)[X(0)]^{-1}u_1(0)=\begin{bmatrix} 3e^{4t} & e^{-4t}\\ 2e^{4t} & -2e^{-4t} \end{bmatrix}\begin{bmatrix} 
+ \dfrac{1}{4}e^{-4.0} & \dfrac{1}{8}e^{-4.0}\\\\ \dfrac{1}{4}e^{4.0} & -\dfrac{3}{8}e^{4.0} \end{bmatrix} \begin{bmatrix} -4 \\ 3 \end{bmatrix} = \begin{bmatrix} -\dfrac{15}{8}e^{4t}- \dfrac{17}{8}e^{-4t}\\\\ -\dfrac{5}{4}e^{4t} +\dfrac{17}{4}e^{-4t} \end{bmatrix}}
+ \end{align}
+ Vậy nghiệm của hệ là :
+ \begin{align}
+  & \textcolor{blue}{  u_1=\begin{bmatrix} -\dfrac{15}{8}e^{4t}- \dfrac{17}{8}e^{-4t}\\\\ -\dfrac{5}{4}e^{4t} +\dfrac{17}{4}e^{-4t} \end{bmatrix}+\begin{bmatrix} \dfrac{15}{256}e^{-4t}+ \dfrac{39}{256}e^{4t}+\dfrac{-24t^{2}-48t-27}{128}  \\\\ -\dfrac{15}{128}e^{-4t}+\dfrac{13}{128}e^{4t}+\dfrac{16t^{2}-112t+2}{128}\end{bmatrix}}\\&=
+  \textcolor{blue}{
+  \begin{bmatrix} -\dfrac{441}{256}e^{4t}-\dfrac{529}{256}e^{-4t} +\dfrac{-24t^{2}-48t-27}{128}  \\\\ -\dfrac{147}{128}e^{4t}+\dfrac{529}{128}e^{-4t}+\dfrac{16t^{2}-112t+2}{128}\end{bmatrix}}\\
+ &\implies\textcolor{blue}{  \begin{cases}
+     \textcolor{blue}
+{R(t)=-\dfrac{441}{256}e^{4t}-\dfrac{529}{256}e^{-4t} +\dfrac{-24t^{2}-48t-27}{128} }\\\\\textcolor{blue}
+{J(t)=-\dfrac{147}{128}e^{4t}+\dfrac{529}{128}e^{-4t}+\dfrac{16t^{2}-112t+2}{128}}
+\end{cases}}
+ \end{align}
+ \textbf{Ví Dụ 5}
+Tìm nghiệm của hệ phương trình :
+ \begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = 5R +2J + t \textcolor{black}{,}\\
+            \dot J = -4R + 1J -t \textcolor{black}{,}\\
+            R(0) = 1\textcolor{black}{,} \enskip J(0) = 1 \textcolor{black}{.}
+        \end{cases}
+        }
+        \label{label9}
+	\end{align}\\
+ Đưa pt về dạng \eqref{label7} ta được: 
+ \notag
+ $\textcolor{blue}{A = \begin{pmatrix} 5& 2\\ -4 & 1 \end{pmatrix}}$ , \enskip $\textcolor{blue}{u_1(0) = \begin{pmatrix} 1 & 1 \end{pmatrix}\sp{T}}$\enskip và   $\textcolor{blue}{h =\begin{pmatrix} t \\ -t \end{pmatrix}}$\\
+Đầu tiên ta giải tìm nghiệm thuần nhất, Ma trận A có hai trị riêng $\textcolor{blue}{\lambda_1=3 + 2i}$ và $\textcolor{blue}{\lambda_2=3-2i }$ từ đó  ta giải được nghiệm thuần nhất của hệ:\\
+\begin{align}
+\notag
+\textcolor{blue}{u= \begin{bmatrix} \cos{2t}e^{3t} & \sin{2t}e^{3t}\\ (-\cos{2t}-\sin{2t)}e^{3t} & (\cos{2t}-\sin{2t})e^{3t} \end{bmatrix} \begin{bmatrix} C_1 \\ C_2 \end{bmatrix}=X(t)C}
+\end{align}
+Ta có :  
+\begin{align*}
+\notag
+&\textcolor{blue}{X(t)= \begin{bmatrix} \cos{2t}e^{3t} & \sin{2t}e^{3t}\\ (-\cos{2t}-\sin{2t})e^{3t} & (\cos{2t}-\sin{2t})e^{3t} \end{bmatrix}} \\
+&\implies \textcolor{blue}{[X(t)]^{-1}= \dfrac{1}{e^{3t}} \begin{bmatrix} (\cos{2t}-\sin{2t})e^{3t} & -\sin{2t}e^{3t}\\ (\cos{2t}+\sin{2t)}e^{3t} &  \cos{2t}e^{3t} \end{bmatrix}= \begin{bmatrix} \cos{2t}-\sin{2t} & -\sin{2t}\\ \cos{2t}+\sin{2t} &  \cos{2t} \end{bmatrix}}\\
+&\implies  \textcolor{blue}
+{\int_{0}^{t}[X(s)]^{-1}h(s) ds }\textcolor{blue}{=\int_{0}^{t}\begin{bmatrix} \cos{2s}-\sin{2s} & -\sin{2s}\\ \cos{2s}+\sin{2s} &  \cos{2s} \end{bmatrix}\begin{bmatrix} s \\ -s\end{bmatrix}}
+ \textcolor{blue}{= \int_{0}^{t}\begin{bmatrix} s\cos{2s} \\ s\sin{2s} \end{bmatrix}}\\
+ &\textcolor{blue}{= \begin{bmatrix} \dfrac{t\sin{2t}}{2}+\dfrac{\cos{2t}}{4}-\dfrac{1}{4}\\\\ \dfrac{sin{2t}}{4}-\dfrac{t\cos{2t}}{2}\end{bmatrix}} 
+ \\ &\implies \textcolor{blue}
+{X(t)\int_{0}^{t}[X(s)]^{-1}h(s) ds = \begin{bmatrix} \cos{2t}e^{3t} & \sin{2t}e^{3t}\\ (-\cos{2t}-\sin{2t})e^{3t} & (\cos{2t}-\sin{2t})e^{3t} \end{bmatrix}\begin{bmatrix} \dfrac{t\sin{2t}}{2}+\dfrac{\cos{2t}}{4}-\dfrac{1}{4}\\\\ \dfrac{sin{2t}}{4}-\dfrac{t\cos{2t}}{2}\end{bmatrix}}\\ 
+&=\textcolor{blue}{
+\begin{bmatrix} \dfrac{e^{3t}}{4}-\dfrac{1}{4}\cos{2t}e^{3t}   \\\\ -\dfrac{2t+1}{4}e^{3t}+\dfrac{1}{4}(\cos{2t}+\sin{2t})e^{3t}\end{bmatrix}}
+ \end{align*}
+ Và: 
+ \begin{align}
+ &\textcolor{blue}{X(t)[X(0)]^{-1}u_1(0)=\begin{bmatrix} \cos{2t}e^{3t} & \sin{2t}e^{3t}\\ (-\cos{2t}-\sin{2t})e^{3t} & (\cos{2t}-\sin{2t})e^{3t} \end{bmatrix}\begin{bmatrix} 
+ 1 & 0\\ 1 & 1 \end{bmatrix} \begin{bmatrix} 1 \\ 1 \end{bmatrix}}\\
+ &\textcolor{blue}{= \begin{bmatrix} (\cos{2t}+2\sin{2t})e^{3t}\\ (\cos{2t}-3\sin{2t})e^{3t} \end{bmatrix}}
+ \end{align}
+ Vậy nghiệm của hệ là :
+ \begin{align}
+  & \textcolor{blue}{  u_1=\begin{bmatrix} (\cos{2t}+2\sin{2t})e^{3t}\\ (\cos{2t}-3\sin{2t})e^{3t} \end{bmatrix}+\begin{bmatrix} \dfrac{e^{3t}}{4}-\dfrac{1}{4}\cos{2t}e^{3t}   \\\\ -\dfrac{2t+1}{4}e^{3t}+\dfrac{1}{4}(\cos{2t}+\sin{2t})e^{3t}\end{bmatrix}}\\
+  &\textcolor{blue}{=\begin{bmatrix} (\dfrac{1}{4}+\dfrac{3}{4}\cos{2t} +2\sin{2t})e^{3t} \\\\ (-\dfrac{t}{2}-\dfrac{1}{4}+\dfrac{5}{4}\cos{2t}-\dfrac{11}{4}\sin{2t})e^{3t}\end{bmatrix}}\\
+ &\implies\textcolor{blue}{  \begin{cases}
+     \textcolor{blue}
+{R(t)=(\dfrac{1}{4}+\dfrac{3}{4}\cos{2t} +2\sin{2t})e^{3t} }\\\\\textcolor{blue}
+{J(t)=(-\dfrac{t}{2}-\dfrac{1}{4}+\dfrac{5}{4}\cos{2t}-\dfrac{11}{4}\sin{2t})e^{3t}}
+\end{cases}}
+ \end{align}
+	\subsection{Hệ phương trình vi phân cấp 1 dạng tổng quát}
+Một dạng tổng quát và phức tạp hơn về tình yêu của Romeo và Juliet là:
+\begin{align*}
+        \textcolor{blue}{
+        \begin{cases}
+            \dot R = f(t, R, J) \textcolor{black}{,}\\
+            \dot J = g(t, R, J) \textcolor{black}{,}\\
+            R(0) = R_{0},
+            J(0) = J_{0}
+            \tag{9}
+        \end{cases}}
+    \end{align*}
+    \subsubsection{Điều kiện tồn tại nghiệm}
+Ta xét hệ tổng quát: 
+\begin{align*}
+        \textcolor{blue}{
+        \begin{cases}
+            \dot x= f(t,x) \textcolor{black}{,}\\
+            x(t_0)=x_0
+        \end{cases}}
+    \end{align*}
+    \textit{Theo  \textcolor{blue}{Định lý Picard } , nếu \textcolor{blue}{f} : D $\rightarrow$ $\mathbb{R}^{n}$ liên tục trên t và thỏa mản điều kiện Lipschitz }:  
+    \begin{align*}
+     \textcolor{blue}{||f(t,x)-f(t,y)||\leq L||x-y||}
+     \tag{10}
+    \end{align*}
+\textit{$\forall x,y \in D=\{x\in\mathbb{R}^{n} ,||x-x_0||\leq r\}, \forall t\in [t_0,t_1]$
+   . Thì  tồn tại $\delta$ >0 để IVP trên có nghiệm 
+   $[t_0 , t_0 +\delta]$.
+   Trong đó ,\textcolor{blue}{f} được gọi là liên tục lân cận Lipschitz và \textcolor{blue}{L} là hằng số Lipschitz.}\\ 
+   Từ định lí ta có bổ đề  : \textit{Nếu $\textcolor{blue}{f(x)}$ và $\textcolor{blue}{\frac{\partial f}{\partial x}}$ liên tục trên [a,b]  $\times$ D, với D $\subset  \mathbb{R}^{n}$ thì $\textcolor{blue}{f}$ sẽ lân cận Lipschitz trong x trên [a,b] $\times$ D}.\\
+   \textcolor{blue}{Định lý Picard } chỉ xác nhận được sự tồn tại và duy nhất của nghiệm $\overline{x(t)}$ trên đoạn $[t_0,t_0+\delta]$ với $\delta$ có thể rất nhỏ nên ta không thể xác nhận sự tồn tại và duy nhất của nghiệm trên 1 đoạn $[t_0,t_1]$ cho trước.Tuy nhiên bằng cách áp dụng liên tục định lí ta có thể mở rộng khoảng tồn tại duy nhất của nghiệm tới  $[t_0,T)$ với $\lim_{t \to T}\overline{x(t)} =\infty$.\\
+    Để nghiệm của hệ \textcolor{purple}{IVP.sys} (9) từ nghiệm cục bộ mở rộng thành nghiệm toàn cục ta phải cần tới một điều kiện lớn hơn là \textcolor{blue}{định lí tồn tại duy nhất nghiệm toàn cục }.
+    \\Định lí phát biểu rằng \textit{nếu  \textcolor{blue}{f} liên tục trên t và thỏa mãn điều kiện Lipschitz}:
+    \begin{align*}
+     \textcolor{blue}{||f(t,x)-f(t,y)||\leq L||x-y||}
+     \tag{11}
+    \end{align*}
+   \textit{ $\forall x,y \in \mathbb{R}^{n}, \forall t\in [t_0,t_1]$ thì hệ tổng quát sẽ có nghiệm duy nhất trên $[t_0,t_1]$}\\
+    Từ định lí ta có bổ đề: \textit{Nếu $\textcolor{blue}{f(x)}$ và $\textcolor{blue}{\frac{\partial f}{\partial x}}$ liên tục trên [a,b] $\times \mathbb{R}^{n}$ thì $\textcolor{blue}{f}$ sẽ liên tục toàn cục Lipschitz khi và chỉ khi $\textcolor{blue}{\frac{\partial f}{\partial x}}$ có giới hạn đồng nhất trên [a,b]$\times \mathbb{R}^{n}$}
+    \\Tuy nhiên điều kiện tồn tại nghiệm toàn cục rất khó để thỏa mãn . Vì vậy ta có thể áp dụng khoảng tồn tại nghiệm tối đa $[t_0,T)$ . nếu T có hạn thì nghiệm $\overline{x(t)}$ của đã rời khỏi tập D.Nếu ta chọn tập W $\subseteq $ D sao cho nghiệm $\overline{x(t)}$ luôn$ \in$ W khi đó T=$\infty$ và hệ luôn có nghiệm $\forall t_0 \geq 0$ \\
+    * \textit{Cho \textcolor{blue}{f(t,x)} liên tục trên t và lân cận Lipschitz trên x với mọi $ t_0 \geq 0 $ và x chứa trong D $\subset \mathbb{R}^{n}$ . 
+    cho W là một tập con của D, $x_0 \in W$, nếu mọi nghiệm của hệ:
+    \begin{align*}
+        \textcolor{blue}{
+        \begin{cases}
+            \dot x= f(t,x) \textcolor{black}{,}\\
+            x(t_0)=x_0
+        \end{cases}}
+    \end{align*}
+    đều nằm trong W thì tồn tại một nghiệm duy nhất cho mọi $t \geq t_0$}\\
+    Vậy với các điều kiện trên ta có thể áp dụng cho \textcolor{purple}{IVP.sys} mà ta đang xét để xác định xem hệ có tồn tại duy nhất nghiệm cục bộ hoặc nghiệm toàn cục.
+    \subsubsection{Các ví dụ }
+    \textbf{Ví Dụ 1} 
+ \begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = R-J\textcolor{black}{,}\\
+            \dot J =  J-R\textcolor{black}{,}\\
+            R(0) = R_0\textcolor{black}{,} \enskip J(0) = J_0 \textcolor{black}{.}
+        \end{cases}
+        }
+        \label{label9}
+	\end{align}
+ Từ hệ ta có:
+ \begin{align}
+    &\textcolor{blue}{ f(t,R,J)= R-J}\\& \textcolor{blue}{ g(t,R,J)=J-R}
+ \end{align}
+ Vì \textcolor{blue}{f,g} liên tục trên t và \textcolor{blue}{$\frac{\partial f}{\partial R}$= 1 , $\frac{\partial f}{\partial J}$= -1 ,$\frac{\partial g}{\partial R}$= -1 , $\frac{\partial g}{\partial J}$= 1} là các hằng số nên luôn bị chặn trên R và J nên hệ thỏa điều kiện toàn cục Lipschitz $\implies$ tồn tại hệ nghiệm duy nhất trên $\mathbb{R}$\\
+    \textbf{Ví Dụ 2} 
+ \begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = -R+RJ\textcolor{black}{,}\\
+            \dot J =  J-RJ\textcolor{black}{,}\\
+            R(0) = R_0\textcolor{black}{,} \enskip J(0) = J_0 \textcolor{black}{.}
+        \end{cases}
+        }
+        \label{label9}
+	\end{align}
+ Từ hệ ta có:
+ \begin{align}
+    &\textcolor{blue}{ f(t,R,J)= -R+RJ}\\& \textcolor{blue}{ g(t,R,J)=J-RJ}
+ \end{align}
+  Vì \textcolor{blue}{f,g} liên tục trên t và \textcolor{blue}{$\frac{\partial f}{\partial R}$= -1+J ,  $\frac{\partial f}{\partial J}$= R , $\frac{\partial g}{\partial R}$= -J , $\frac{\partial g}{\partial J}$= 1-R}  liên tục nhưng không bị chặn trên $\mathbb{R}^{2}$ nên hệ thỏa điều kiện lân cận Lipschitz nhưng không thỏa điều kiện toàn cục Lipschitz $\implies$ tồn tại hệ nghiệm lân cận tại 0.\\
+  \textbf{Ví Dụ 3} 
+ \begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = cos(R)+sin(J)\textcolor{black}{,}\\
+            \dot J =  cos(J)+sin(R)\textcolor{black}{,}\\
+            R(0) = R_0\textcolor{black}{,} \enskip J(0) = J_0 \textcolor{black}{.}
+        \end{cases}
+        }
+        \label{label9}
+	\end{align}
+ Từ hệ ta có:
+ \begin{align}
+    &\textcolor{blue}{ f(t,R,J)= cos(R)+sin(J)}\\ &\textcolor{blue}{ g(t,R,J)=cos(J)+sin(R)}
+ \end{align}
+  Vì \textcolor{blue}{f,g} liên tục trên t và \textcolor{blue}{$\frac{\partial f}{\partial R}$= -$sin(R)$ ,  $\frac{\partial f}{\partial J}$= cos(J) , $\frac{\partial g}{\partial R}$= cos(R)  , $\frac{\partial g}{\partial J}$= -sin(J)}  liên tục và bị chặn trên $\mathbb{R}^{2}$ vì cos và sin là các hàm tuần hoàn nên hệ thỏa điều kiện toàn cục Lipschitz \\$\implies$ tồn tại nghiệm trên $\mathbb{R}$\\
+  \textbf{Ví Dụ 4} 
+ \begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = R^{2}\textcolor{black}{,}\\
+            \dot J = J^{2}\textcolor{black}{,}\\
+            R(0) = R_0\textcolor{black}{,} \enskip J(0) = J_0 \textcolor{black}{.}
+        \end{cases}
+        }
+        \label{label9}
+	\end{align}
+ Từ hệ ta có:
+ \begin{align}
+    \textcolor{blue}{ f(t,R,J)= R^{2}}\\ \textcolor{blue}{ g(t,R,J)=J^{2}}
+ \end{align}
+  Vì \textcolor{blue}{f,g} liên tục trên t và \textcolor{blue}{$\frac{\partial f}{\partial R}$= 2R,  $\frac{\partial f}{\partial J}$= 0 , $\frac{\partial g}{\partial R}$= 0  , $\frac{\partial g}{\partial J}$= 2J}  liên tục nhưng không bị chặn trên $\mathbb{R}^{2}$  nên hệ thỏa điều kiện lân cận Lipschitz nhưng không thỏa điều kiện toàn cục Lipschitz \\$\implies$ tồn tại hệ nghiệm lân cận tại 0.\\
+   \textbf{Ví Dụ 5} 
+ \begin{align}
+	    \textcolor{blue}{
+	    \begin{cases}
+            \dot R = R^{\dfrac{1}{3}}\textcolor{black}{,}\\
+            \dot J = J+R\textcolor{black}{,}\\
+            R(0) = R_0\textcolor{black}{,} \enskip J(0) = J_0 \textcolor{black}{.}
+        \end{cases}
+        }
+        \label{label9}
+	\end{align}
+ Từ hệ ta có:
+ \begin{align}
+    &\textcolor{blue}{ f(t,R,J)= R^{\dfrac{1}{3}}}\\ &\textcolor{blue}{ g(t,R,J)=J+R}
+ \end{align}
+  Vì \textcolor{blue}{f,g} liên tục trên t và \textcolor{blue}{  $\frac{\partial f}{\partial J}$= 0 , $\frac{\partial g}{\partial R}$= 0  , $\frac{\partial g}{\partial J}$= 2J}  liên tục trên $\mathbb{R}^{2}$  nhưng \textcolor{blue}{  $\frac{\partial f}{\partial R}$= $\dfrac{1}{3\sqrt[3]{R^{2}}}$} không liên tục tại R=0 nên hệ không lân cận Lipschitz $\implies$ không tồn tại duy nhất 1 hệ nghiệm.
+\section{Sử dụng phương pháp Euler để giải các mô hình ODEs}
+	\subsection{Phương pháp Euler}
+	Phương pháp Euler là một phương pháp số bậc một để giải các phương trình vi phân thường (ODEs) với giá trị ban đầu cho trước. Nó là phương pháp hiện cơ bản nhất cho việc tính tích phân số của các phương trình vi phân thường.
+	\subsubsection{Phương pháp hiện (Explicit)}
+        {\bfseries Dạng tổng quát của phương pháp hiện Euler (Explicit Euler):}
+
+	   \begin{align} \notag
+	        \textcolor{blue}{y_{n+1} = y_{n} + hf(t_{n}, y_{n})} 
+	   \end{align}
+	   Trong đó:
+    \begin{itemize}
+        \item $\textcolor{blue}{y_{n+1}}$ : Giá trị tiếp theo.
+        \item $\textcolor{blue}{y_{n}}$ : Giá trị ban đầu. 
+        \item $\textcolor{blue}{h}$ : Khoảng cách giữa hai mốc thời gian (bước).
+        \item $\textcolor{blue}{t_{n}}$ : thời điểm tại $\textcolor{blue}{n}$, trong đó $\textcolor{blue}{t_{n} = t_{0} + nh}$
+    \end{itemize}
+    Phương pháp hiện Euler có thể được giải thích qua khai triển Taylor như sau: 
+    \begin{align} \notag
+        \textcolor{blue}{y(t_{0} + h) = y(t_{0}) + y'(t_0)h + \dfrac{1}{2}h^{2}y''(t_{0}) + O(h^3)}
+    \end{align}
+    Sai số cắt cụt cục bộ của phương pháp hiện Euler (Local trucation error - LTE) là sự khác biệt giữa lời giải số sau một bước, $\textcolor{blue}{y_1}$, và lời giải chính xác tại thời điểm $\textcolor{blue}{t_1 = t_0 + h}$.
+    Lời giải số được cho bởi:
+    \begin{align} \notag
+        \textcolor{blue}{LTE = y(t_0 + h) - y_1}
+    \end{align}
+    với $\textcolor{blue}{y(t_{0} + h)}$ qua khai triển Taylor: 
+	\begin{align} \notag
+        \textcolor{blue}{y(t_{0} + h) = y(t_{0}) + y'(t_0)h + \dfrac{1}{2}h^{2}y''(t_{0}) + O(h^3)}
+    \end{align}
+    \subsubsection{Phương pháp ngầm (Implicit)}
+    {\bfseries  Dạng tổng quát của phương pháp ngầm Euler (Implicit Euler):}
+    \begin{align} \notag
+         \textcolor{blue}{y_{k+1} = y_{k} + hf(t_{k+1}, y_{k+1})} 
+    \end{align}
+    hay
+    \begin{align}
+        \textcolor{blue}{y_{k} = y_{k+1} - hf(t_{k+1}, y_{k+1})}
+    \end{align}
+    Trong đó:
+        \begin{itemize}
+        \item $\textcolor{blue}{y_{k+1}}$ : Giá trị tiếp theo.
+        \item $\textcolor{blue}{y_{k}}$ : Giá trị ban đầu. 
+        \item $\textcolor{blue}{h}$ : Khoảng cách giữa hai mốc thời gian (bước).
+        \item $\textcolor{blue}{t_{k}}$ : thời điểm tại $\textcolor{blue}{n}$, trong đó $\textcolor{blue}{t_{k} = t_{0} + kh}$
+    \end{itemize}
+    Phương pháp ngầm Euler có thể được giải thích qua khai triển Taylor như sau:
+    \begin{align} \notag
+        \textcolor{blue}{y(t_{0} + h) = y(t_{0}) + y'(t_0)h + \dfrac{1}{2}h^{2}y''(t_{0}) + O(h^3)}
+    \end{align}
+    Sai số cắt cụt cục bộ của phương pháp ngầm Euler (Local truncation eror - LTE) là sự khác biệt giữa lời giải số sau một bước, $\textcolor{blue}{y_1}$, và lời giải chính xác tại thời điểm $\textcolor{blue}{t_1 = t_0 + h}$.
+    Lời giải số được cho bởi:
+    \begin{align} \notag
+        \textcolor{blue}{LTE = y(t_0 + h) - y_1}
+    \end{align}
+    với $\textcolor{blue}{y(t_{0} + h)}$ qua khai triển Taylor: 
+	\begin{align} \notag
+        \textcolor{blue}{y(t_{0} + h) = y(t_{0}) + y'(t_0)h + \dfrac{1}{2}h^{2}y''(t_{0}) + O(h^3)}
+    \end{align}
+	\subsection{Giải quyết vấn đề}
+            \subsubsection{Chứng minh $\large{\mathcal{E}}(t_1)$ tỉ lệ với $h^2$ theo phương pháp hiện Euler}
+	Xét mô hình toán học \textcolor{purple}{IVPs Sys.(13)} với phương pháp hiện Euler: 
+	\begin{align}
+	    \begin{cases} \textcolor{blue}{\tag{11}}
+	     \textcolor{blue}{R_{1} = R_{0} + f(t_{0}, R_{0}, J_{0})h}\\
+	     \textcolor{blue}{J_{1} = J_{0} + g(t_{0}, R_{0}, J_{0})h}
+	    \end{cases}
+	\end{align}
+	và LTE của mô hình trên: 
+	\begin{align} \textcolor{blue}{\tag{12}}
+	    \textcolor{blue}{\large{\mathcal{E}}(t_1) = \sqrt{\left[R(t_{1})-R_{1}\right]^{2}+\left[J(t_{1})-J_{1}\right]^{2}}}
+	\end{align}
+	
+    Biến đổi $\textcolor{blue}{R(t_1)}$ theo khai triển Taylor, ta được:
+    \textcolor{blue}{
+    \begin{align}\notag
+        R(t_1)& = R(t_{0}+h) \\ 
+        & = R(t_{0}) + R'(t_0)h + \dfrac{1}{2}R''(t_0)h^2\notag \\
+        & = R(t_{0}) + f(t_{0}, R_{0}, J_{0})h + \dfrac{1}{2}f'(t_{0}, R_{0}, J_{0})h^2 \tag{13}
+    \end{align}
+    }
+    tương tự với $ \textcolor{blue}{J(t_1)}$, ta được:
+    \textcolor{blue}{
+    \begin{align} \tag{14}
+        {J(t_1)=J(t_0)+ g(t_{0}, R_{0}, J_{0})h + \dfrac{1}{2}g'(t_{0}, R_{0}, J_{0})h^2} 
+    \end{align}
+    }
+    Thay \textcolor{blue}{(11), (13), (14)} vào \textcolor{blue}{(12)}, ta được: \\
+    \textcolor{blue}{
+        \begin{multline}
+         \mathcal{E}(t_1) = \sqrt{\left\{ \left[R(t_{0}) + f(t_{0}, R_{0}, J_{0})h + \dfrac{1}{2}f'(t_{0}, R_{0}, J_{0})h^2 \right] - \left[R_{0} + f(t_{0}, R_{0}, J_{0})h \right] \right\}^2 \\& + \left\{ \left[J(t_{0}) + g(t_{0}, R_{0}, J_{0})h + \dfrac{1}{2}g'(t_{0}, R_{0}, J_{0})h^2 \right] - \left[J_{0} + g(t_{0}, R_{0}, J_{0})h \right] \right\}^2 } 
+        \end{multline}
+        \begin{equation}
+            & = \sqrt{\left[\dfrac{1}{2}f'(t_{0}, R_{0}, J_{0})h^2 \right] ^2 + \left[ \dfrac{1}{2}g'(t_{0}, R_{0}, J_{0})h^2 \right] ^2 }\\ \notag
+        \end{equation}
+        \begin{equation}\notag
+           & = \sqrt{\dfrac{1}{4}f'(t_{0}, R_{0}, J_{0})h^4
+            + \dfrac{1}{4}g'(t_{0}, R_{0}, J_{0})h^4 } \\ 
+        \end{equation} 
+        \begin{equation} \notag
+           & = {h^2} \sqrt{\dfrac{1}{4}f'(t_{0}, R_{0}, J_{0}) + \dfrac{1}{4}g'(t_{0}, R_{0}, J_{0})}\\
+        \end{equation}}
+        
+    Ta thấy được \textcolor{blue}{$\mathcal{E}(t_1)$ }tỉ lệ với \textcolor{blue}{$h^2$} 
+    \subsubsection{Chứng minh $\large{\mathcal{E}}(t_1)$ tỉ lệ với $h^2$ theo phương pháp ngầm Euler}
+    Tương tự với phương pháp hiện Euler, xét LTE của mô hình trên: 
+	\begin{align} \tag{15}
+	    \textcolor{blue}{\large{\mathcal{E}}(t_1) = \sqrt{\left[R(t_{1})-R_{1}\right]^{2}+\left[J(t_{1})-J_{1}\right]^{2}}}
+	\end{align}
+    Biến đổi $\textcolor{blue}{R(t_1)}$ theo khai triển Taylor, ta được:
+    \textcolor{blue}{
+    \begin{align}\notag
+        R(t_1)& = R(t_{0}+h) \\ 
+        & = R(t_{0}) + R'(t_0)h + \dfrac{1}{2}R''(t_0)h^2\notag \\
+        & = R(t_{0}) + f(t_{0}, R_{0}, J_{0})h + \dfrac{1}{2}f'(t_{0}, R_{0}, J_{0})h^2 + O(h^3) \tag{16}
+    \end{align}
+    }
+    tương tự với $ \textcolor{blue}{J(t_1)}$, ta được:
+    \textcolor{blue}{
+    \begin{align} \tag{17}
+        {J(t_1)=J(t_0)+ g(t_{0}, R_{0}, J_{0})h + \dfrac{1}{2}g'(t_{0}, R_{0}, J_{0})h^2} 
+    \end{align}
+    }
+    Thay \textcolor{blue}{(15), (17)} vào \textcolor{blue}{(16)}, ta được: \\
+    \textcolor{blue}{
+        \begin{multline}
+         \mathcal{E}(t_1) = \sqrt{\left\{ \left[R(t_{0}) + f(t_{0}, R_{0}, J_{0})h + \dfrac{1}{2}f'(t_{0}, R_{0}, J_{0})h^2 \right] - \left[R_{0} + f(t_{0}, R_{0}, J_{0})h \right] \right\}^2 \\& + \left\{ \left[J(t_{0}) + g(t_{0}, R_{0}, J_{0})h + \dfrac{1}{2}g'(t_{0}, R_{0}, J_{0})h^2 \right] - \left[J_{0} + g(t_{0}, R_{0}, J_{0})h \right] \right\}^2 } 
+        \end{multline}
+        \begin{equation}
+            & = \sqrt{\left[\dfrac{1}{2}f'(t_{0}, R_{0}, J_{0})h^2 \right] ^2 + \left[ \dfrac{1}{2}g'(t_{0}, R_{0}, J_{0})h^2 \right] ^2 }\\ \notag
+        \end{equation}
+        \begin{equation}\notag
+           & = \sqrt{\dfrac{1}{4}f'(t_{0}, R_{0}, J_{0})h^4
+            + \dfrac{1}{4}g'(t_{0}, R_{0}, J_{0})h^4 } \\ 
+        \end{equation}
+        \begin{equation}\notag
+           & = {h^2} \sqrt{\dfrac{1}{4}f'(t_{0}, R_{0}, J_{0}) + \dfrac{1}{4}g'(t_{0}, R_{0}, J_{0})} \\
+        \end{equation}
+    }
+    Ta thấy được \textcolor{blue}{$\mathcal{E}(t_1)$ }tỉ lệ với \textcolor{blue}{$h^2$}. \\\\
+    Tuy rằng phương pháp ngầm Euler có thể đưa ra được các đáp án với độ chính xác cao hơn phương pháp hiện Euler, việc phải giải quyết một hệ phương trình phi tuyến tính khiến độ phức tạp của thuật toán cao hơn, dẫn đến cần nhiều thời gian tính toán hơn và khó thực hiện hơn.
+    \subsubsection{Áp dụng phương pháp ngầm Euler vào IVPs Sys.(14)}
+        Ở trên, ta đã nói về việc tính toán \textcolor{purple}{IVPs Sys.(14)} bằng phương pháp ngầm Euler sẽ cho kết quả chính xác cao hơn phương pháp hiện Euler; ta có thể giải hệ phương trình phi tuyến tính của \textcolor{purple}{IVPs Sys.14} bằng phương pháp Newton-Rhapson. 
+        Dạng tổng quát của phương pháp Newton-Rhapson:
+        \begin{align} 
+         \textcolor{blue}{x_{n+1}= x_{n} - \dfrac{f(x_{n})}{f'(x_{n+1})} } \tag{18}
+        \end{align}
+        Trong đó:
+    \begin{itemize}
+        \item $\textcolor{blue}{x_{n+1}}$ : Giá trị tiếp theo.
+        \item $\textcolor{blue}{y_{n}}$ : Giá trị ban đầu.
+        \item $\textcolor{blue}{f(x_{n})}$ : Hàm số dựa trên biến $\textcolor{blue}{x_{n}}$.
+    \end{itemize}
+    Phương pháp Newton-Rhapson \textcolor{blue}{(18)} được lặp lại cho đến khi tìm được một giá trị có độ chính xác tương đối được tìm thấy. 
+    Ta sẽ xây dựng mô hình Newton-Rhapson qua ngôn ngữ lập trình Python để giải mô hình Lotka-Volterra từ Exercise 3 (Hình 4):
+    \begin{lstlisting}[language=Python]
+import math 
+import matplotlib.pyplot as plt #for plotting
+import numpy as np 
+from numpy.linalg import inv
+
+def f(y_old_1, y1, y2, h):
+    return (y_old_1 + h * (y1 * (1 - y2)) - y1)
+def g(y_old_2, y1, y2, h):
+    return (y_old_2 + h * (y2 * (y1 - 1)) - y2)
+# Defining the Jacobian Function
+def jacobian(y_old_1, y_old_2, y1, y2, h):
+    J = np.ones((2,2))
+    dy = 1e-6
+
+    J[0,0] = (f(y_old_1, y1 + dy, y2, h) - f(y_old_1, y1, y2, h))/dy
+    J[0,1] = (f(y_old_1, y1, y2 + dy, h) - f(y_old_1, y1, y2, h))/dy
+
+    J[1,0] = (g(y_old_2, y1 + dy, y2, h) - g(y_old_2, y1, y2, h))/dy
+    J[1,1] = (g(y_old_2, y1, y2 + dy, h) - g(y_old_2, y1, y2, h))/dy 
+    return J
+
+def newtRhap(y1, y2, y1_guess, y2_guess, h):
+	S_old = np.ones((2, 1))
+	S_old[0] = y1_guess
+	S_old[1] = y2_guess
+	F = np.ones((2, 1))
+	error = 9e9
+	tol = 1e-9
+	alpha = 1
+	iter = 1
+
+	while error > tol:
+		J = jacobian(y1, y2, S_old[0], S_old[1], h)
+		F[0] = f(y1,S_old[0], S_old[1], h) 
+		F[1] = g(y2,S_old[0], S_old[1], h)
+		S_new = S_old - alpha * (np.matmul(inv(J), F))
+		error = np.max(np.abs(S_new - S_old))
+		S_old = S_new
+		iter = iter + 1
+
+	return [S_new[0],S_new[1]] 
+
+def implicit_euler(inty1, inty2, tspan, dt):
+	t = np.arange(0, tspan,dt)
+	y1 = np.zeros(len(t))
+	y2 = np.zeros(len(t))
+	y1[0] = inty1
+	y2[0] = inty2
+	
+	for i in range(1, len(t)):
+		y1[i] , y2[i]  = newtRhap(y1[i-1], y2[i-1], y1[i-1], y2[i-1], dt)
+
+	return [t,y1,y2]
+
+t,y1,y2 = implicit_euler(2,2,10,0.01)
+
+
+plt.plot(t, y1,'b', label = 'Romeo')
+plt.plot(t, y2,'g', label = 'Juliet')
+plt.xlabel('Time')
+plt.ylabel('Love for the other')
+plt.title('Lotka-Volterra, $R_0$ = 2, $J_0$ = 2')
+plt.legend()
+plt.show()
+     \end{lstlisting}
+    \begin{figure}
+        \centering
+        \includegraphics[width = 9cm]{images/Lotka-Volterra.png}
+        \caption{Mô hình Lotka-Volterra qua Newton-Rhapson, với $R_0 = J_0 = 4$} 
+    \end{figure}
+    Tương tự, ta có một số ví dụ sau đây (Hình 5): \\
+    \begin{figure*}[t!]
+        \subfloat[\\R'(t) = R(t) + J(t)\\ J'(t) = R(t) - J(t) \\ R_{0} = e, J_{0} = 3]{%
+            \includegraphics[width=.55\linewidth ,valign=c]{images/i.e1.png}%
+            \label{A}%
+        }\hfill
+        \subfloat[\\R'(t) = R(t) + 3tan(J(t))\\ J'(t) = J(t)+J(t)tan(R(t)) \\ R_{0} = 0, J_{0} = -5]{%
+            \includegraphics[valign=c, width=.55\linewidth ]{images/i.e2.png}%
+            \label{A}%
+            } \\
+        \subfloat[\\R'(t) = cos(sin(J(t)))\\ J'(t) = R(t) \\ R_{0} = 0, J_{0} = \pi]{%
+            \includegraphics[width=.55\linewidth, valign=c]{images/i.e3.png}%
+            \label{A}%
+        }\hfill
+        \subfloat[\\$R'(t) = e^{R(t)+J(t)}$\\ $J'(t) = R.(sin(R(t)-J(t))- J.(cos(R(t)+J(t))$ \\ R_{0} = 1, J_{0} = -1 ]{%
+            \includegraphics[width=.55\linewidth, valign=c]{images/i.e4.png}%
+            \label{A}%
+        }
+        \caption{Một số ví dụ}
+        \label{fig:fig}
+    \end{figure*}
+    Từ mô hình trên, ta dễ dàng nhận thấy, với bước \textcolor{blue}{h} càng nhỏ, độ chính xác càng cao, đồng thời với việc sử dụng 2 vòng lặp để giải bài toán, sai số cắt cụt cục bộ của vấn đề cũng bằng \textcolor{blue}{$h^2$}.
+
+\newpage
+    \section{Ước lượng các hệ số của mô hình ODEs}
+	\subsubsection{Mô hình hồi quy tuyến tính}
+    {\bfseries Mô hình hồi quy tuyến tính:} dùng để xem xét mối quan hệ tuyến tính giữa biến phụ thuộc $\textcolor{blue}{Y}$ và biến độc lập $\textcolor{blue}{X}$ có dạng tổng quát như sau:
+    \begin{align}
+        \textcolor{blue}{Y_{i} = \beta_{0} + \beta_{1} X_{1i} + \beta_{2} X_{2i} + ... + \beta_{n} X_{ni} + u_{i}}
+        \label{model1}
+    \end{align}
+    Trong đó:
+    \begin{itemize}
+        \item $\textcolor{blue}{\beta_{n}}$ : Hệ số hồi quy của các biến độc lập, trong đó $\textcolor{blue}{\beta_{0}}$ là hệ số tự do.
+        \item $\textcolor{blue}{u}$ : Hạng nhiễu hay sai số ngẫu nhiên.
+        \item $\textcolor{blue}{i}$ : Kí hiệu cho quan sát thứ $\textcolor{blue}{i}$ trong tổng thể.
+    \end{itemize}
+    {\bfseries Độ mạnh của mô hình hồi quy tuyến tính:} được đo lường thông qua hệ số R bình phương ($R^{2}$). Hệ số này cho biết mức độ phù hợp của mô hình hồi quy tuyến tính với tập dữ liệu. Thông thường ngưỡng của $R^{2}$ phải trên $50\%$ vì như thế mô hình mới phù hợp.
+    \begin{align*}
+        \textcolor{blue}{R^{2} = 1 - \frac{ESS}{TSS}}
+    \end{align*}
+    Trong đó:
+    \begin{itemize}
+        \item $\textcolor{blue}{ESS}$ (Residual Sum of Squares): Tổng các độ lệch bình phương của phần dư.
+        \item $\textcolor{blue}{TSS}$ (Total Sum of Squares): Tổng độ lệch bình phương của toàn bộ các nhân tố nghiên cứu.
+    \end{itemize}
+
+    \subsubsection{Phương pháp bình phương nhỏ nhất (OLS)}
+    Xét mô hình hồi quy \eqref{model1}. Phương pháp OLS sẽ lựa chọn các hệ số hồi quy $\textcolor{blue}{\beta}$ từ $\textcolor{blue}{\beta_{0}}$ đến $\textcolor{blue}{\beta_{n}}$ sao cho bình phương sai số $\textcolor{blue}{u}$ của mô hình ước lượng là nhỏ nhất.
+    
+    \subsubsection{Ước lượng các hệ số của mô hình ODEs}
+    Ta sẽ tiến hành ước lượng các hệ số $\textcolor{blue}{a}$, $\textcolor{blue}{b}$, $\textcolor{blue}{c}$, $\textcolor{blue}{d}$ của hệ phương trình vi phân \eqref{label3}\\\\
+    {\bfseries - Xây dựng mô hình hồi quy tuyến tính đa biến} (bằng phương pháp OLS)\\
+    
+\begin{lstlisting}[language=Python]
+import pandas as pd
+import array as arr
+import numpy as np
+import statsmodels.api as sm
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.pipeline import make_pipeline
+from scipy.integrate import odeint
+
+# Doc du lieu vao
+data_exact = pd.read_excel("exact.xlsx")
+del data_exact['Unnamed: 0']
+
+# Xu li du lieu
+time = []
+for idx in range(0, data_exact.shape[0], 1):
+    time.append(idx * 0.001)
+    
+## Romeo
+x = np.array([time]).T
+y = np.array(data_exact['R'])
+
+model_R = make_pipeline(PolynomialFeatures(5), LinearRegression())
+model_R.fit(x, y)
+model_R = model_R.predict(x)
+plt.plot(x,y,'o')
+plt.plot(x, model_R, '-', color = 'black', linewidth = 2)
+plt.show()
+
+## Juliet
+x = np.array([time]).T
+y = np.array(data_exact['J'])
+
+model_J = make_pipeline(PolynomialFeatures(5), LinearRegression())
+model_J.fit(x, y)
+model_J = model_J.predict(x)
+plt.plot(x,y,'o', color = 'darkorange')
+plt.plot(x, model_J, '-', color = 'black', linewidth = 2)
+plt.show()
+
+## Cap nhat lai du lieu
+data_exact['R'] = model_R
+data_exact['J'] = model_J
+
+# Tinh dao ham cua R va J theo thoi gian
+derivative_R = []
+derivative_J = []
+
+for idx in range(0, data_exact.shape[0] - 1, 1):
+    derivative_R.append((data_exact['R'].iloc[idx + 1] - data_exact['R'].iloc[idx]) / 0.001)
+    derivative_J.append((data_exact['J'].iloc[idx + 1] - data_exact['J'].iloc[idx]) / 0.001)
+
+data_exact = data_exact.drop(labels=[data_exact.shape[0] - 1])
+
+data_exact['R\''] = derivative_R
+data_exact['J\''] = derivative_J
+
+# Xay dung mo hinh cho R'
+dependent_R = data_exact['R\'']
+explanatory_R = data_exact[['R', 'J']]
+
+results_mul = sm.OLS(dependent_R, explanatory_R).fit()
+
+results_mul.summary()
+
+# Xay dung mo hinh cho J'
+dependent_J = data_exact['J\'']
+explanatory_J = data_exact[['R', 'J']]
+
+results_mul = sm.OLS(dependent_J, explanatory_J).fit()
+
+results_mul.summary()
+\end{lstlisting}
+
+    {\bfseries - Kiểm tra lại mô hình}: bằng cách giải hệ phương trình vi phân vừa tìm được và so sánh với dữ liệu đầu vào.\\
+    
+\begin{lstlisting}[language=Python]
+# Giai he phuong trinh vi phan
+def model(u, t):
+    x = u[0]
+    y = u[1]
+    dxdt = 2.1743*x + 3.7571*y
+    dydt = 5.4217*x - 2.2445*y
+    return [dxdt, dydt]
+ 
+u0 = [-2, 3]
+t = np.linspace(0, 1, 10000)
+
+u = odeint(model, u0, t)
+
+x = u[:, 0]
+y = u[:, 1]
+
+# Doc lai du lieu dau vao
+data_source = pd.read_excel("exact.xlsx")
+del data_source['Unnamed: 0']
+
+# Ve do thi nghiem vua tim duoc va so sanh voi du lieu dau vao
+plt.plot(time, data_source['R'], '-', label = 'R exact')
+plt.plot(time, data_source['J'], '-', label = 'J exact')
+
+plt.plot(t, x, 'r-', linewidth = 2, label = 'R estimate')
+plt.plot(t, y, 'k-', linewidth = 2, label = 'J estimate')
+
+plt.xlabel('time')
+plt.legend()
+
+plt.show()
+\end{lstlisting}
+
+    \begin{figure}[!htp]
+        \centering
+        \includegraphics[width = 9cm]{Estimate1.png}
+        \caption{Đồ thị nghiệm của mô hình vừa tìm được so với dữ liệu ban đầu} 
+    \end{figure}
+
+\begin{lstlisting}[language=Python]
+# Dieu chinh lai cac he so a, b, c, d vua uoc luong duoc cho phu hop
+def model(u, t):
+    x = u[0]
+    y = u[1]
+    dxdt = 2.3*x + 3.8*y
+    dydt = 5.5*x - 2.3*y
+    return [dxdt, dydt]
+ 
+u0 = [-2, 3]
+t = np.linspace(0, 1, 10000)
+
+u = odeint(model, u0, t)
+
+x = u[:, 0]
+y = u[:, 1]
+
+plt.plot(time, data_source['R'], '-', label = 'R exact')
+plt.plot(time, data_source['J'], '-', label = 'J exact')
+
+plt.plot(t, x, 'r-', linewidth = 2, label = 'R estimate')
+plt.plot(t, y, 'k-', linewidth = 2, label = 'J estimate')
+
+plt.xlabel('Time')
+plt.ylabel('Love for the other')
+plt.legend()
+
+plt.show()
+
+\end{lstlisting}
+
+    \begin{figure}[!htp]
+        \centering
+        \includegraphics[width = 9cm]{Estimate2.png}
+        \caption{Đồ thị nghiệm của mô hình sau khi điều chỉnh so với dữ liệu ban đầu} 
+    \end{figure}
+
+{\bfseries - Kết luận}: Từ tập dữ liệu ban đầu ta ước lượng được các hệ số của hệ phương trình vi phân \eqref{label3} như sau:
+    \begin{align*}
+    \textcolor{blue}{
+    \begin{tabular}{ll}
+         a = 2.3, & b = 3.8,\\
+         c = 5.5, & d = -2.3.
+    \end{tabular}}
+    \end{align*}
+    
+\newpage
+    
+\begin{thebibliography}{80}
+
+\bibitem[MZ98]{}
+Michael Zeltkevic. Forward and Backward Euler Methods, 1998.
+
+\bibitem[CAW16]{}
+Christopher A. Wong. Local Truncation Error of Implicit Euler, 2016.
+
+\bibitem[TS18]{} 
+Thanuj Singaravelan. Solving a system of ODEs using Implicit Euler method, 2018.
+
+\bibitem[KBH16]{}
+Kenneth B. Howell. Ordinary Differential Equations An Introduction to the \\Fundamentals, 2016.
+
+\bibitem[JL08]{}
+Joceline Lega. Calculus and Differential Equations II, 2008.
+
+\bibitem[LNS]{}
+Anonymous. Linear Nonhomogeneous Systems of Differential Equations with Constant Coefficients.
+
+\end{thebibliography}
+\end{document}
+
